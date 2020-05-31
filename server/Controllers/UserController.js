@@ -37,7 +37,7 @@ router.post('/user', function (req, res, next) {
         if (err) {
             console.log(err);
         } else {
-            Response.successResponse('User saved!', res, {});
+            Response.successResponse('User saved!', res, userData);
         }
     })
 });
@@ -47,18 +47,18 @@ router.delete('/user', function (req, res, next) {
         if (err) {
             Response.errorResponse(err, res);
         } else {
-            Response.successResponse('User deleted!', res, {});
+            Response.successResponse('User deleted!', res, post);
         }
     });
 });
 
 router.put('/user', function (req, res, next) {
     console.log(req.body._id);
-    UsersModel.findByIdAndUpdate(req.body._id, req.body, function (err, post) {
+    UsersModel.findByIdAndUpdate(req.body._id, req.body, function (err, put) {
         if (err) {
             Response.errorResponse(err, res);
         } else {
-            Response.successResponse('User updated!', res, {});
+            Response.successResponse('User updated!', res, put);
         }
     });
 });
