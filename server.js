@@ -21,6 +21,9 @@ app.engine('.hbs', exphbs({
     extname: '.hbs'
 }));
 
+//Environment variables
+require('dotenv').config();
+
 /*const mongoose = require('mongoose');
 var Schema = mongoose.Schema;*/
 
@@ -33,6 +36,6 @@ mongoose.connect(process.env.MONGODB_URL, { useNewPassword: true, password: proc
 
 app.set('view engine', '.hbs');
 
-app.listen(8080, () => {
-    console.log(process.env.SERVER_PORT)
+app.listen(process.env.SERVER_PORT, () => {
+    console.log('SERVER STARTED AT', process.env.SERVER_PORT)
 })
