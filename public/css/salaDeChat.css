@@ -1,0 +1,133 @@
+body{
+    background-color: #fcd728 !important;
+    display: flex;
+    height: 100vh;
+}
+.header{
+    width: 15%;
+    height: auto;
+}
+.center-image{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+}
+.logo{
+    width: 140px;
+    height: auto;
+}
+.margins-container{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    height: 75px;
+}
+.main{
+    width: 85%;
+}
+.avatar {
+    vertical-align: middle;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+.sub-header-right{
+    background-color: #ffa834;
+}
+.justify-content-space-around{
+    justify-content: space-around;
+}
+.margin-right-35{
+    margin-right: 35px;
+}
+.margin-right-20{
+    margin-right: 20px;
+}
+.active-conversations{
+    border-top: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 15px;
+    padding-right: 15px;
+    text-align: center;
+    margin-top: 10px;
+}
+.main-container{
+    display: flex;
+}
+.friends-list{
+    width: 20%;
+    border: 1px solid black;
+}
+.text-area-chat{
+    width: 60%;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    height: calc(100vh - 224px);
+    background-color: #e6e6e6;
+    display: flex;
+}
+.rooms-list{
+    width: 20%;
+    border: 1px solid black;
+}
+.pink-title{
+    background-color: #ff8351;
+    border-radius: 5px;
+    padding: 10px;
+    color: white;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+.item-name{
+    list-style-type: none;
+    height: 30px;
+    border-bottom: 1px solid black;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    background-color: white;
+}
+.item-name:last-child {
+    border-bottom: none;
+}
+.item-name a{
+    color:black;
+}
+.menu-header{
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top: 15px;
+    border: 1px solid black;
+}
+.ul-margins{
+    padding-left: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+.cursor-pointer{
+    cursor: pointer;
+}
+.text-area{
+    background-color: white;
+    width: 99%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border: 1px solid black;
+}
+.margin-top-20{
+    margin-top: 20px;
+}
+.footer{
+    position: absolute;
+    bottom: 0;
+    background-color: #d9534f;;
+    width: 100%;
+    height: 75px;
+}
