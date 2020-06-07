@@ -24,8 +24,7 @@
                     </div>
                 </div>
                 <div class="button-enter">
-                     <input type="submit" class="btn btn-light" type="button" value="Entrar" />
-                   <!-- <a href="/listaDeSalas" type="button" class="btn btn-light">Entrar</a>-->
+                   <a href="/listaDeSalas" type="button" class="btn btn-light">Entrar</a>
                 </div>
             </div>
         </div>
@@ -67,11 +66,5 @@ $('.stored').keyup(function () {
     localStorage.setItem('email', $(this).val());
     console.log($(this).val());
     console.log(window.localStorage);
-});
-
-$('#login-form').submit(function() {
-    localStorage.clear();
-    console.log('clear')
-    Console.log(window.localStorage);
 });
 </script>
