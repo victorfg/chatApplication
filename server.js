@@ -36,6 +36,6 @@ mongoose.connect(process.env.MONGODB_URL, { useNewPassword: true, password: proc
 
 app.set('view engine', '.hbs');
 
-app.listen(process.env.SERVER_PORT, () => {
+app.listen(8080, () => {
     console.log('SERVER STARTED AT', process.env.SERVER_PORT)
 })
