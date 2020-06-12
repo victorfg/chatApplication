@@ -1,19 +1,20 @@
 {
-  "name": "server",
+  "name": "ChatApplication",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "A Real Time Chat Application built using Node.js, Express, Handlebars, Mongoose, Socket.io",
+  "main": "server.js",
   "scripts": {
     "start": "nodemon server.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["Node.js", "Express", "Handlebars", "Mongoose", "Socket.io"],
+  "author": "The Nameless",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "express-handlebars": "^4.0.4",
-    "nodemon": "^2.0.4"
+    "express-handlebars": "^4.0.4"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
 }
