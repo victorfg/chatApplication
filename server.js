@@ -6,8 +6,8 @@ const path = require('path');
 const app = express();
 
 //Routes
-app.use(require('./routes/index.routes'));
-app.use(require('./routes/listaDeSalas.routes'));
+app.use(require('./routes/renderViews/index.routes'));
+app.use(require('./routes/renderViews/listaDeSalas.routes'));
 
 //Middlewares
 app.use(express.static(path.join(__dirname, 'public')));
@@ -36,6 +36,6 @@ mongoose.connect(process.env.MONGODB_URL, { useNewPassword: true, password: proc
 
 app.set('view engine', '.hbs');
 
-app.listen(8080, () => {
+app.listen(2000, () => {
     console.log('SERVER STARTED AT', process.env.SERVER_PORT)
 })

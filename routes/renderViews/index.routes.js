@@ -27,15 +27,12 @@ router.get('/listaDeSalas', (req,res) =>{
     });
 })
 
-//CRUD
-router.get('/users', function (req, res) {
-    UsersModel.find(function (err, users) {
-        if (err) {
-            console.log(err);
-        } else {
-            res.json(users);
-        }
+router.get('/salaDeChatNoRegistrado', (req,res) =>{
+    res.render('salaDeChatNoRegistrado', {
+        title: 'Lista de Salas',
+        logo: 'logo.png',
+        style: 'salaDeChatNoRegistrado.css'
     });
-});
+})
 
 module.exports = router;

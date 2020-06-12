@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 //Call User Database Model
-var UsersModel = require('../models/User.js');
+var UsersModel = require('../../models/User.js');
 
 //CRUD
 router.get('/users', function (req, res) {
