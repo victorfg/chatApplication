@@ -6,7 +6,8 @@ router.get('/', (req,res) =>{
         title: 'Pagina Inicio',
         style: 'index.css',
         logo: 'logo.png',
-        avatar: 'avatar.jpg'
+        avatar: 'avatar.jpg',
+        renderCanvasEffect:true
     });
 })
 
