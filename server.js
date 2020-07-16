@@ -1,17 +1,28 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
 const path = require('path');
+const mongoose = require("mongoose");
+const bodyParser = require('body-parser');
+const cors = require('cors');
 
 //Initializations
 const app = express();
 
-//Routes
-app.use(require('./routes/renderViews/index.routes'));
-app.use(require('./routes/renderViews/listaDeSalas.routes'));
+//MIDDLEWARES
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-//Middlewares
+//Import Routes
+app.use(require('./routes/gets'));
+app.use(require('./routes/posts'));
+app.use(require('./routes/gets'));
+app.use(require('./routes/posts'));
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'images')));
+
+//End MIDDLEWARES
 
 //Settings
 app.engine('.hbs', exphbs({
@@ -24,18 +35,16 @@ app.engine('.hbs', exphbs({
 //Environment variables
 require('dotenv').config();
 
-/*const mongoose = require('mongoose');
-var Schema = mongoose.Schema;*/
-
 //Db Connection Start
-/*mongoose.Promise = global.Promise;
-mongoose.connect(process.env.MONGODB_URL, { useNewPassword: true, password: process.env.MONGODB_PASSWORD, useNewUrlParser: true })
-    .then(() => console.log('connection succesful'))
-    .catch((err) => console.error(err));*/
-//Db Connetion End
+try {
+    mongoose.connect('mongodb+srv://admin:12345@cluster0.vjjlf.mongodb.net/ChatApp?retryWrites=true&w=majority', { useNewUrlParser: true,useUnifiedTopology: true });
+    console.log("conected BD!")
+} catch (error) {
+    handleError(error);
+}
 
 app.set('view engine', '.hbs');
 
 app.listen(2000, () => {
     console.log('SERVER STARTED AT', process.env.SERVER_PORT)
-})
+});
