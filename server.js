@@ -45,6 +45,17 @@ try {
 
 app.set('view engine', '.hbs');
 
-app.listen(2000, () => {
+server = app.listen(process.env.SERVER_PORT, () => {
     console.log('SERVER STARTED AT', process.env.SERVER_PORT)
+});
+
+const io = require('socket.io').listen(server);
+
+io.on('connection',function(socket) {
+    console.log('Alguien se ha conectado al servidor de sockets');
+    socket.emit('messages',{
+        id:1,
+        text:'hola soy un mensaje',
+        'author':'test'
+    });
 });
