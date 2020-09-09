@@ -1,17 +1,59 @@
 const { Router } = require('express');
 const router = Router();
-var UserModel = require('../models/User.js');
+var User = require('../models/User');
 
-router.post('/registrarUsuario', (req,res) =>{
-    //return res.status(200).json(req.body);
-    const User = new UserModel({
-        name: req.body.nameInput,
-        email: req.body.emailInput,
-        password: req.body.passwordInput
-    });
-
-    User.save();
-    res.redirect('/salaDeChat');
+router.post('/registrarUsuario', async (req,res) =>{
+    const { nameInput, emailInput, passwordInput, confirmpasswordInput} = req.body;
+    const errors = [];
+    const informativeText = [];
+    if (nameInput.length <= 0) {
+        errors.push({text: 'Por favor inserta un nombre'})
+    }
+    if (emailInput.length <= 0) {
+        errors.push({text: 'Por favor inserta un email'})
+    }
+    if (passwordInput.length <= 0) {
+        errors.push({text: 'Por favor inserta un password'})
+    }
+    if (confirmpasswordInput.length <= 0) {
+        errors.push({text: 'Por favor inserta una confirmacion de password'})
+    }
+    if (passwordInput != confirmpasswordInput){
+        errors.push({text: 'Passwords diferentes'})
+    }
+    if (passwordInput.length < 4){
+        errors.push({text: 'El password deberia de ser al menos de 4 digitos'})
+    }
+    if(errors.length > 0){
+        res.render('registroUsuario', {
+            title: 'Registro Usuario',
+            logo: 'logo.png',
+            style: 'registrousuario.css',
+            errors,nameInput,emailInput,passwordInput,confirmpasswordInput
+        });
+    } else {
+        const emailUserRepeated = await User.findOne({emailInput: emailInput});
+        if (emailUserRepeated){
+            req.flash('error_msg', 'El email que has añadido ya esta siendo usado');
+            res.render('registroUsuario', {
+                title: 'Registro Usuario',
+                logo: 'logo.png',
+                style: 'registrousuario.css',
+                errors,nameInput,emailInput,passwordInput,confirmpasswordInput
+            });
+        }
+        const newUser = new User({nameInput, emailInput, passwordInput});
+        await newUser.save();
+        informativeText.push({text: 'Se ha creado el usuario Correctamente!'})
+        res.render('index', {
+            title: 'Pagina Inicio',
+            style: 'index.css',
+            logo: 'logo.png',
+            avatar: 'avatar.jpg',
+            renderCanvasEffect:true,
+            informativeText
+        });
+    }
 });
 
 router.post('/user', function (req, res, next) {

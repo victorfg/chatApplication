@@ -1,7 +1,6 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
 const path = require('path');
-const mongoose = require("mongoose");
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
@@ -24,6 +23,8 @@ app.use(express.static(path.join(__dirname, 'images')));
 
 //End MIDDLEWARES
 
+require('./database');
+
 //Settings
 app.engine('.hbs', exphbs({
     defaultLayout:'main',
@@ -34,14 +35,6 @@ app.engine('.hbs', exphbs({
 
 //Environment variables
 require('dotenv').config();
-
-//Db Connection Start
-try {
-    mongoose.connect('mongodb+srv://admin:12345@cluster0.vjjlf.mongodb.net/ChatApp?retryWrites=true&w=majority', { useNewUrlParser: true,useUnifiedTopology: true });
-    console.log("conected BD!")
-} catch (error) {
-    handleError(error);
-}
 
 app.set('view engine', '.hbs');
 

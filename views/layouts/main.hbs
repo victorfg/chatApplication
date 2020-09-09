@@ -32,9 +32,13 @@
         {{#if renderCanvasEffect}}
             <div id="main-container-canvas-effect" class="main-container-canvas-effect">
                 <canvas id="canvas-effect"></canvas>
+                {{> informativeText }}
+                {{> errors }}
                 {{{ body }}}
             </div>
         {{else}}
+            {{> informativeText }}
+            {{> errors }}
             {{{ body }}}
         {{/if}}
     </body>
