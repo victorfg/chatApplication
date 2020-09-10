@@ -1,6 +1,15 @@
 const { Router } = require('express');
+const passport = require('passport');
 const router = Router();
 var User = require('../models/User');
+
+router.post('/', (req,res,next) => {
+    passport.authenticate('local.signin',{
+        successRedirect: '/listaDeSalas',
+        failureRedirect: '/',
+        failureFlash: true
+    })(req, res, next);
+});
 
 router.post('/registrarUsuario', async (req,res) =>{
     const { nameInput, emailInput, passwordInput, confirmpasswordInput} = req.body;
@@ -34,7 +43,7 @@ router.post('/registrarUsuario', async (req,res) =>{
     } else {
         const emailUserRepeated = await User.findOne({emailInput: emailInput});
         if (emailUserRepeated){
-            req.flash('error_msg', 'El email que has añadido ya esta siendo usado');
+            //req.flash('error_msg', 'El email que has añadido ya esta siendo usado');
             res.render('registroUsuario', {
                 title: 'Registro Usuario',
                 logo: 'logo.png',

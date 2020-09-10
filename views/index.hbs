@@ -35,19 +35,21 @@
         <div class="col-sm usuario-registrado">
             <div class="center-text">Usuario registrado</div>
             <div class="margin-top-30">
-                <div class="row justify-concent-center">
-                    <div class="col-sm-10">
-                        <input type="email" class="form-control" id="inputEmail2" name ="inputEmail2" placeholder="email">
+                <form method="POST" action="/">
+                    <div class="row justify-concent-center">
+                        <div class="col-sm-10">
+                            <input type="email" class="form-control" id="emailInput" name ="emailInput" placeholder="email">
+                        </div>
                     </div>
-                </div>
-                <div class="row justify-concent-center margin-top-15">
-                    <div class="col-sm-10">
-                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="password">
+                    <div class="row justify-concent-center margin-top-15">
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="passwordInput" name ="passwordInput" placeholder="password">
+                        </div>
                     </div>
-                </div>
-                <div class="button-enter">
-                    <a href="/listaDeSalas" type="button" class="btn btn-light">Entrar</a>
-                </div>
+                    <div class="button-enter">
+                        <button type="submit" class="btn btn-light">Entrar</input>
+                    </div>
+                </form>
                 <div class="separation"></div>
                 <div class="button-enter">
                     <a href="/registrarUsuario" type="button" class="btn btn-light">Registrarse</a>

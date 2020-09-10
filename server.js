@@ -2,15 +2,37 @@ const express = require('express');
 const exphbs = require('express-handlebars');
 const path = require('path');
 const bodyParser = require('body-parser');
+const passport = require("passport");
+const session = require("express-session");
 const cors = require('cors');
+const flash = require('connect-flash');
 
 //Initializations
 const app = express();
+require('./database');
+require('./lib/passport');
 
 //MIDDLEWARES
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(session({
+    secret: 'mysecretapp',
+    resave:true,
+    saveUnitialized: true
+}))
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+
+// Global Variables
+app.use((req, res, next) => {
+  res.locals.success_msg = req.flash('success_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  res.locals.error = req.flash('error');
+  next();
+});
 
 //Import Routes
 app.use(require('./routes/gets'));
@@ -22,8 +44,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'images')));
 
 //End MIDDLEWARES
-
-require('./database');
 
 //Settings
 app.engine('.hbs', exphbs({

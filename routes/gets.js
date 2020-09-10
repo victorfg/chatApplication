@@ -47,6 +47,17 @@ router.get('/salaDeChat', (req,res) =>{
     });
 });
 
+router.get('/logout', (req,res) =>{
+    req.logout();
+    res.render('index', {
+        title: 'Pagina Inicio',
+        style: 'index.css',
+        logo: 'logo.png',
+        avatar: 'avatar.jpg',
+        renderCanvasEffect:true
+    });
+});
+
 /* GET SINGLE POST BY ID */
 router.get('/user/:id', function (req, res, next) {
     UsersModel.findById(req.params.id, function (err, post) {

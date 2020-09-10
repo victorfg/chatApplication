@@ -68,3 +68,21 @@ body{
     display: flex;
     align-items: center;
 }
+
+.logout-div{
+    display: flex;
+    position: absolute;
+    right: 35px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+a {
+    text-decoration: none !important;
+    color: black !important;
+}
+
+a:hover{
+   color:black !important;
+}
