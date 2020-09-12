@@ -3,24 +3,38 @@ const exphbs = require('express-handlebars');
 const path = require('path');
 const bodyParser = require('body-parser');
 const passport = require("passport");
+const methodOverride = require('method-override');
 const session = require("express-session");
 const cors = require('cors');
 const flash = require('connect-flash');
+const morgan = require('morgan');
+const connectMongo = require('connect-mongo');
+const mongoose = require('mongoose');
 
 //Initializations
 const app = express();
-require('./database');
 require('./lib/passport');
 
-//MIDDLEWARES
-app.use(cors());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+//Settings
+app.engine('.hbs', exphbs({
+    defaultLayout:'main',
+    layoutsDir: path.join(app.get('views'), 'layouts'),
+    partialsDir: path.join(app.get('views'), 'partials'),
+    extname: '.hbs'
+}));
 
+app.set('view engine', '.hbs');
+
+//middlewares
+app.use(morgan('dev'));
+app.use(express.urlencoded({extended: false}));
+app.use(methodOverride('_method'));
+const MongoStore = connectMongo(session);
 app.use(session({
-    secret: 'mysecretapp',
-    resave:true,
-    saveUnitialized: true
+    resave: true,
+    saveUninitialized: true,
+    secret: 'secret',
+    store: new MongoStore({mongooseConnection: mongoose.connection})
 }))
 app.use(passport.initialize());
 app.use(passport.session());
@@ -31,10 +45,11 @@ app.use((req, res, next) => {
   res.locals.success_msg = req.flash('success_msg');
   res.locals.error_msg = req.flash('error_msg');
   res.locals.error = req.flash('error');
+  res.locals.user = req.user || null;
   next();
 });
 
-//Import Routes
+// Routes
 app.use(require('./routes/gets'));
 app.use(require('./routes/posts'));
 app.use(require('./routes/gets'));
@@ -43,32 +58,4 @@ app.use(require('./routes/posts'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'images')));
 
-//End MIDDLEWARES
-
-//Settings
-app.engine('.hbs', exphbs({
-    defaultLayout:'main',
-    layoutsDir: path.join(app.get('views'), 'layouts'),
-    partialsDir: path.join(app.get('views'), 'partials'),
-    extname: '.hbs'
-}));
-
-//Environment variables
-require('dotenv').config();
-
-app.set('view engine', '.hbs');
-
-server = app.listen(process.env.SERVER_PORT, () => {
-    console.log('SERVER STARTED AT', process.env.SERVER_PORT)
-});
-
-const io = require('socket.io').listen(server);
-
-io.on('connection',function(socket) {
-    console.log('Alguien se ha conectado al servidor de sockets');
-    socket.emit('messages',{
-        id:1,
-        text:'hola soy un mensaje',
-        'author':'test'
-    });
-});
+module.exports = app;
