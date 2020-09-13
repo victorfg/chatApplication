@@ -4,13 +4,16 @@
             <img class="logo"src={{logo}} alt="logo" /> 
         </a>
     </div>
+    {{#if nameUser}}
+        <div class="name-user">Hola {{nameUser}}</div>
+    {{/if}}
+    <div class="logout-div"><a href="/logout"><i class="fa fa-sign-out fa-3x" aria-hidden="true"></i><div>Salir</div></a></div>
 </div>
-
 <div class="main">
     <div class="margins-container">
         <div class="text-lista">Lista de Salas</div>
         <div class="crear-sala">
-            <a href="#" type="button" class="btn btn-light">Crear Sala</a>
+            <button type="button" class="btn btn-light" data-toggle="modal" data-target="#crearSala" data-whatever="@mdo">Crear Sala</button>
         </div>
         <div class="md-form mt-0 buscar">
             <input class="form-control" type="text" placeholder="Buscar Sala" aria-label="Search">
@@ -19,12 +22,42 @@
     <div class="margins-container">
         <div class="list-container">
             <ul class="ul-margins">
-                {{#each roomNames}}
+                {{#each roomsUser}}
                     <li class="item-name cursor-pointer">
-                        <a href="/salaDeChat" class="a-element-link-item">{{this}}</a>
+                        <a method="GET" href="/salaDeChat?id={{_id}}" class="a-element-link-item">{{this.nombreDeLaSala}}</a>
+                        <form action="/room/delete/{{_id}}?_method=DELETE" method="POST" class="margin-right-20">
+                            <button type="submit" class="btn btn-danger btn-block btn-sm">
+                                <i class="fa fa-trash fa-1x" aria-hidden="true"></i>
+                            </button>
+                        </form>
                     </li>
                 {{/each}}
             </ul>
         </div>
     </div>
+</div>
+
+<div class="modal fade" id="crearSala" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Crear una Sala</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <form method="POST" action="/listaDeSalas">
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Nombre de la Sala</label>
+                    <input type="text" class="form-control" id="nombreDeLaSala" name="nombreDeLaSala">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary">Enviar</button>
+            </div>
+        </form>
+    </div>
+  </div>
 </div>

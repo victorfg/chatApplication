@@ -1,7 +1,7 @@
 <div class = "header">
     <div class="center-image">
         <a href="/">
-            <img class="logo"src={{logo}} alt="logo" /> 
+            <img class="logo"src={{logo}} alt="logo" />
         </a>
     </div>
     <div class="pink-title margin-top-20">
@@ -23,11 +23,13 @@
 <div class="main">
     <div class="header-right">
         <div class="margins-container">
+            <div class="room-name">Sala: {{activeRoom}}</div>
             <img src= {{avatar}} alt="Avatar" id="avatarImgSalaChat" class="avatar cursor-pointer margin-right-20">
             <div id="nombreUsuario"class="crear-sala margin-right-20"></div>
             <div class="crear-sala margin-right-35">
                 <a href="#" type="button" class="btn btn-light">Editar Perfil</a>
             </div>
+            <div class="logout-div"><a href="/logout"><i class="fa fa-sign-out fa-3x" aria-hidden="true"></i><div>Salir</div></a></div>
         </div>
     </div>
     <div class="sub-header-right">
