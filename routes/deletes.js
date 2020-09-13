@@ -3,8 +3,11 @@ const router = Router();
 
 // Controller
 const {
-    deleteUser
+    deleteRoom
 } = require("../controllers/deletesController");
 
 
-router.delete("/user",deleteUser);
+// Delete Notes
+router.delete("/room/delete/:id", deleteRoom);
+
+module.exports = router;

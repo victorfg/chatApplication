@@ -42,14 +42,21 @@ getsCtrl.renderSalaDeChatNoRegistrado= (req, res) => {
     });
 };
 
-getsCtrl.renderSalaDeChat= (req, res) => {
+getsCtrl.renderSalaDeChat= async(req, res) => {
+    //const activeRoom = await RoomModel.findOne({ user: req.user.id });
+    var myJSON = JSON.stringify(req.query);
+    console.log("DEFINITIVO "+req.query.id);
+    const activeRoom = await RoomModel.findOne({ _id: req.query.id });
+    //const activeRoom = await RoomModel.findOne({ _id: req.user.id });
+    //console.log("DEFINITIVO "+req.params.idRoom);
     res.render('salaDeChat', {
         title: 'Sala de Chat',
         logo: 'logo.png',
         style: 'salaDeChat.css',
         roomNames: ['Apps','Games','Movies','Books','Newspapers'],
         friendsNames: ['Juan','Maria','Pedro','Teresa','Sara'],
-        avatar: 'avatar.jpg'
+        avatar: 'avatar.jpg',
+        activeRoom: activeRoom.nombreDeLaSala
     });
 };
 

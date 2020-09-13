@@ -1,14 +1,11 @@
 var User = require('../models/User');
+var Room = require('../models/Room');
 const deleteCtrl = {};
 
-deleteCtrl.deleteUser= (req, res, next) => {
-    User.findByIdAndRemove(req.body._id, function (err, post) {
-        if (err) {
-            Response.errorResponse(err, res);
-        } else {
-            Response.successResponse('User deleted!', res, post);
-        }
-    });
+deleteCtrl.deleteRoom= async(req, res) => {
+    await Room.findByIdAndDelete(req.params.id);
+    req.flash("success_msg", "Sala eliminada correctamente");
+    res.redirect("/listaDeSalas");
 };
 
 module.exports = deleteCtrl;

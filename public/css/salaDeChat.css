@@ -22,6 +22,7 @@ body{
     align-items: center;
     justify-content: flex-end;
     height: 75px;
+    position: relative;
 }
 .main{
     width: 85%;
@@ -147,4 +148,10 @@ a {
 
 a:hover{
    color:black !important;
+}
+
+.room-name{
+    position: absolute;
+    left: 40%;
+    font-size: 20px;
 }

@@ -52,8 +52,8 @@ app.use((req, res, next) => {
 // Routes
 app.use(require('./routes/gets'));
 app.use(require('./routes/posts'));
-app.use(require('./routes/gets'));
-app.use(require('./routes/posts'));
+app.use(require('./routes/puts'));
+app.use(require('./routes/deletes'));
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'images')));

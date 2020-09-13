@@ -24,7 +24,12 @@
             <ul class="ul-margins">
                 {{#each roomsUser}}
                     <li class="item-name cursor-pointer">
-                        <a href="/salaDeChat" class="a-element-link-item">{{this.nombreDeLaSala}}</a>
+                        <a method="GET" href="/salaDeChat?id={{_id}}" class="a-element-link-item">{{this.nombreDeLaSala}}</a>
+                        <form action="/room/delete/{{_id}}?_method=DELETE" method="POST" class="margin-right-20">
+                            <button type="submit" class="btn btn-danger btn-block btn-sm">
+                                <i class="fa fa-trash fa-1x" aria-hidden="true"></i>
+                            </button>
+                        </form>
                     </li>
                 {{/each}}
             </ul>
