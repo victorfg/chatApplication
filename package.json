@@ -2,9 +2,9 @@
   "name": "ChatApplication",
   "version": "1.0.0",
   "description": "A Real Time Chat Application built using Node.js, Express, Handlebars, Mongoose, Socket.io",
-  "main": "index.js",
+  "main": "app/index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon app/index.js"
   },
   "keywords": [
     "Node.js",
