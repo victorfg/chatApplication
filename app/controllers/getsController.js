@@ -43,20 +43,16 @@ getsCtrl.renderSalaDeChatNoRegistrado= (req, res) => {
 };
 
 getsCtrl.renderSalaDeChat= async(req, res) => {
-    //const activeRoom = await RoomModel.findOne({ user: req.user.id });
-    var myJSON = JSON.stringify(req.query);
-    console.log("DEFINITIVO "+req.query.id);
     const activeRoom = await RoomModel.findOne({ _id: req.query.id });
-    //const activeRoom = await RoomModel.findOne({ _id: req.user.id });
-    //console.log("DEFINITIVO "+req.params.idRoom);
     res.render('salaDeChat', {
         title: 'Sala de Chat',
-        logo: 'logo.png',
         style: 'salaDeChat.css',
         roomNames: ['Apps','Games','Movies','Books','Newspapers'],
         friendsNames: ['Juan','Maria','Pedro','Teresa','Sara'],
-        avatar: 'avatar.jpg',
-        activeRoom: activeRoom.nombreDeLaSala
+        activeRoom: activeRoom.nombreDeLaSala,
+        nameInput:req.user.nameInput,
+        emailInput:req.user.emailInput,
+        idDeLaSala:req.query.id
     });
 };
 
@@ -64,26 +60,5 @@ getsCtrl.renderLogout= (req, res) => {
     req.logout();
     res.redirect('/');
 };
-
-/* GET SINGLE POST BY ID */
-/*router.get('/user/:id', function (req, res, next) {
-    UsersModel.findById(req.params.id, function (err, post) {
-        if (err) {
-            Response.errorResponse(err, res);
-        } else {
-            Response.successResponse('User Detail!', res, post);
-        }
-    });
-});
-
-router.get('/users', function (req, res) {
-    UsersModel.find(function (err, users) {
-        if (err) {
-            console.log(err);
-        } else {
-            res.json(users);
-        }
-    });
-});*/
 
 module.exports = getsCtrl;

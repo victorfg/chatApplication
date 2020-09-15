@@ -1,7 +1,7 @@
 <div class = "header">
     <div class="center-image">
         <a href="/">
-            <img class="logo"src={{logo}} alt="logo" />
+            <img class="logo"src="/logo.png" alt="logo" />
         </a>
     </div>
     <div class="pink-title margin-top-20">
@@ -24,10 +24,12 @@
     <div class="header-right">
         <div class="margins-container">
             <div class="room-name">Sala: {{activeRoom}}</div>
-            <img src= {{avatar}} alt="Avatar" id="avatarImgSalaChat" class="avatar cursor-pointer margin-right-20">
-            <div id="nombreUsuario"class="crear-sala margin-right-20"></div>
+            <img src= "avatar.jpg" alt="Avatar" id="avatarImgSalaChat" class="avatar cursor-pointer margin-right-20">
+            <div id="nombreUsuario"class="crear-sala margin-right-20">{{nameInput}}</div>
             <div class="crear-sala margin-right-35">
-                <a href="#" type="button" class="btn btn-light">Editar Perfil</a>
+                <button class="btn btn-light" data-toggle="modal" data-target="#modalForm">
+                    Editar Perfil
+                </button>
             </div>
             <div class="logout-div"><a href="/logout"><i class="fa fa-sign-out fa-3x" aria-hidden="true"></i><div>Salir</div></a></div>
         </div>
@@ -92,3 +94,39 @@
     </div>
 </div>
 <div class="footer"></div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalForm" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h5 class="modal-title">Datos de tu cuenta</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="POST" action="/salaDeChatUpdateUser">
+                <input type="hidden" name="idDeLaSala" value="{{idDeLaSala}}"/>
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    <p class="statusMsg"></p>
+                    <div class="form-group">
+                        <label for="inputName">Nombre</label>
+                         <input value="{{nameInput}}" type="text" class="form-control" id="nameInput" name="nameInput" placeholder="Nombre">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputEmail">Email</label>
+                        <input value="{{emailInput}}" type="email" class="form-control" id="emailInput" name="emailInput" placeholder="email">
+                    </div>
+                </div>
+                
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-success submitBtn">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -5,7 +5,8 @@ const router = Router();
 const {
     postAutentificationMainPage,
     postRegistrarUsuario,
-    postListaDeSalas
+    postListaDeSalas,
+    postSalaDeChatUpdateUser
 } = require("../controllers/postsController");
 
 //Se gestiona el login mediante el lib/passport y segun vaya bien o no se redirecciona
@@ -14,5 +15,7 @@ router.post("/",postAutentificationMainPage);
 router.post("/registrarUsuario",postRegistrarUsuario);
 
 router.post("/listaDeSalas",postListaDeSalas);
+
+router.post("/salaDeChatUpdateUser",postSalaDeChatUpdateUser);
 
 module.exports = router;
