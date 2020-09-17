@@ -27,3 +27,6 @@ body{
     justify-content: center;
     margin-top: 20px;
 }
+.file-input{
+    padding: 3px !important;
+}

@@ -29,8 +29,10 @@ getsCtrl.renderListaDeSalas= async(req, res) => {
         title: 'Lista de Salas',
         logo: 'logo.png',
         style: 'listaDeSalas.css',
-        nameUser:req.user.nameInput,
-        roomsUser:rooms
+        roomsUser:rooms,
+        nameInput:req.user.nameInput,
+        emailInput:req.user.emailInput,
+        avatarImage: req.user.image
     });
 }; 
 
@@ -44,6 +46,11 @@ getsCtrl.renderSalaDeChatNoRegistrado= (req, res) => {
 
 getsCtrl.renderSalaDeChat= async(req, res) => {
     const activeRoom = await RoomModel.findOne({ _id: req.query.id });
+    // Obtenemos todos los usuarios menos el activo
+    const getAllUsersLessActive = await UsersModel.find({ _id: {$ne:req.user.id }});
+    let arrayUsers = getAllUsersLessActive.map((item)=>{
+        return { nameInput:item.nameInput, emailInput:item.emailInput }
+    });
     res.render('salaDeChat', {
         title: 'Sala de Chat',
         style: 'salaDeChat.css',
@@ -52,7 +59,9 @@ getsCtrl.renderSalaDeChat= async(req, res) => {
         activeRoom: activeRoom.nombreDeLaSala,
         nameInput:req.user.nameInput,
         emailInput:req.user.emailInput,
-        idDeLaSala:req.query.id
+        idDeLaSala:req.query.id,
+        allUsers:arrayUsers,
+        avatarImage: req.user.image
     });
 };
 

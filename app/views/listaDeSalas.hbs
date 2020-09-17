@@ -4,10 +4,20 @@
             <img class="logo"src={{logo}} alt="logo" /> 
         </a>
     </div>
-    {{#if nameUser}}
-        <div class="name-user">Hola {{nameUser}}</div>
-    {{/if}}
-    <div class="logout-div"><a href="/logout"><i class="fa fa-sign-out fa-3x" aria-hidden="true"></i><div>Salir</div></a></div>
+    <div class="header-options">
+        {{#if avatarImage}}
+            <img src="./uploads/{{avatarImage}}" alt="Avatar" id="avatarImgSalaChat" class="avatar cursor-pointer margin-right-20"/>
+        {{else}}
+            <img src="avatar.jpg" alt="Avatar" id="avatarImgSalaChat" class="avatar cursor-pointer margin-right-20"/>
+        {{/if}}
+        <div id="nombreUsuario" class="margin-right-20">{{nameInput}}</div>
+        <div class="margin-right-35">
+            <button class="btn btn-light" data-toggle="modal" data-target="#modalForm">
+                Editar Perfil
+            </button>
+        </div>
+        <div class=""><a href="/logout"><i class="fa fa-sign-out fa-3x" aria-hidden="true"></i><div>Salir</div></a></div>
+    </div>
 </div>
 <div class="main">
     <div class="margins-container">
@@ -60,4 +70,42 @@
         </form>
     </div>
   </div>
+</div>
+
+<!-- MODALS -->
+
+<!-- Modal para editar usuario -->
+<div class="modal fade" id="modalForm" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h5 class="modal-title">Datos de tu cuenta</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="POST" action="/salaListaDeSalasUpdateUser">
+                <input type="hidden" name="idDeLaSala" value="{{idDeLaSala}}"/>
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    <p class="statusMsg"></p>
+                    <div class="form-group">
+                        <label for="inputName">Nombre</label>
+                        <input value="{{nameInput}}" type="text" class="form-control" id="nameInput" name="nameInput" placeholder="Nombre">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputEmail">Email</label>
+                        <input value="{{emailInput}}" type="email" class="form-control" id="emailInput" name="emailInput" placeholder="email">
+                    </div>
+                </div>
+                
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-success submitBtn">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>

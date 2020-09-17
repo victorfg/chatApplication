@@ -55,7 +55,7 @@ body{
     text-align: center;
     margin-top: 10px;
 }
-.main-container{
+.display-flex{
     display: flex;
 }
 .friends-list{
@@ -154,4 +154,9 @@ a:hover{
     position: absolute;
     left: 40%;
     font-size: 20px;
+}
+.div-icon-add-friend{
+    position: absolute;
+    right: 25px;
+    cursor: pointer;
 }

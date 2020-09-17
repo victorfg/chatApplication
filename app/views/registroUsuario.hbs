@@ -5,9 +5,14 @@
 <div class="container">
     <div class="row margin-top-30">
         <div class="col-sm usuario-registrado">
-            <form method="POST" action="/registrarUsuario">
+            <form method="POST" action="/registrarUsuario" enctype="multipart/form-data">
                 <div class="margin-top-30">
                     <div class="row justify-concent-center">
+                        <div class="col-sm-10">
+                            <input type="file" class="file-input form-control" name="file">
+                        </div>
+                    </div>
+                    <div class="row justify-concent-center margin-top-15">
                         <div class="col-sm-10">
                             <input value="{{nameInput}}" type="text" class="form-control" id="nameInput" name="nameInput" placeholder="Nombre">
                         </div>

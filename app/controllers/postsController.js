@@ -15,6 +15,7 @@ postsCtrl.postAutentificationMainPage= (req, res, next) => {
 
 postsCtrl.postRegistrarUsuario= async (req, res, next) => {
     const { nameInput, emailInput, passwordInput, confirmpasswordInput} = req.body;
+    const fileImage = req.file ? req.file.filename : null;
     const errors = [];
     const informativeText = [];
     if (nameInput.length <= 0) {
@@ -52,7 +53,7 @@ postsCtrl.postRegistrarUsuario= async (req, res, next) => {
                 errors,nameInput,emailInput,passwordInput,confirmpasswordInput
             });
         }
-        const newUser = new User({nameInput, emailInput, passwordInput});
+        const newUser = new User({nameInput, emailInput, passwordInput, image:fileImage});
         await newUser.save();
         informativeText.push({text: 'Se ha creado el usuario Correctamente!'})
         res.render('index', {
@@ -72,19 +73,15 @@ postsCtrl.postListaDeSalas = async(req, res, next) => {
     newRoom.user = req.user.id;
     console.log("newRoom "+newRoom);
     await newRoom.save();
-    req.flash("success_msg", "Note Added Successfully");
+    req.flash("success_msg", "Sala agregada correctamente");
     res.redirect("/listaDeSalas");
 };
 
 postsCtrl.postSalaDeChatUpdateUser= async(req, res, next) => {
-    const { nameInput, emailInput,passwordInput} = req.body;
-    
-    //console.log("SALAID  "+req.body.idDeLaSala); //OK!
-    //console.log("IDUSER "+req.user._id);//OK!
-    //console.log("NAMEINPUT "+nameInput + " EMAILINPUT "+emailInput);
-    //console.log("IDInput "+req.user._id+"PasswordInput "+req.user.passwordInput);
+    const { nameInput, emailInput} = req.body;
+    const password = req.user.passwordInput;
 
-    await User.findByIdAndUpdate(req.user._id, { nameInput, emailInput, passwordInput});
+    await User.findByIdAndUpdate(req.user._id, { nameInput, emailInput, password});
 
     res.redirect(url.format({
         pathname:"salaDeChat",
@@ -92,6 +89,16 @@ postsCtrl.postSalaDeChatUpdateUser= async(req, res, next) => {
            "id": req.body.idDeLaSala
          }
     }));
+};
+
+postsCtrl.postSalaListaDeSalasUpdateUser = async(req, res, next) => {
+    const { nameInput, emailInput} = req.body;
+    const password = req.user.passwordInput;
+
+    await User.findByIdAndUpdate(req.user._id, { nameInput, emailInput, password});
+
+    req.flash("success_msg", "Usuario actualizado correctamente");
+    res.redirect("/listaDeSalas");
 };
 
 module.exports = postsCtrl;
