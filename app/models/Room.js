@@ -9,6 +9,10 @@ const UserSchema = new Schema({
     user: {
         type: String,
         required: true
+    },
+    isPublicRoom: {
+        type:Boolean,
+        required:true
     }
 });
 

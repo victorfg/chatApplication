@@ -71,7 +71,7 @@ postsCtrl.postListaDeSalas = async(req, res, next) => {
     const { nombreDeLaSala } = req.body;
     const newRoom = new Room({ nombreDeLaSala });
     newRoom.user = req.user.id;
-    console.log("newRoom "+newRoom);
+    newRoom.isPublicRoom = req.body.radioButtonPublicRoom == "option1" ? true : false;
     await newRoom.save();
     req.flash("success_msg", "Sala agregada correctamente");
     res.redirect("/listaDeSalas");

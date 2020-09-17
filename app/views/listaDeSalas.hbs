@@ -35,6 +35,11 @@
                 {{#each roomsUser}}
                     <li class="item-name cursor-pointer">
                         <a method="GET" href="/salaDeChat?id={{_id}}" class="a-element-link-item">{{this.nombreDeLaSala}}</a>
+                         {{#if this.isPublicRoom}}
+                            <span class="badge badge-primary margin-right-35">Sala publica</span>
+                        {{else}}
+                            <span class="badge badge-secondary margin-right-35">Sala privada</span>
+                        {{/if}}
                         <form action="/room/delete/{{_id}}?_method=DELETE" method="POST" class="margin-right-20">
                             <button type="submit" class="btn btn-danger btn-block btn-sm">
                                 <i class="fa fa-trash fa-1x" aria-hidden="true"></i>
@@ -45,31 +50,6 @@
             </ul>
         </div>
     </div>
-</div>
-
-<div class="modal fade" id="crearSala" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Crear una Sala</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-        <form method="POST" action="/listaDeSalas">
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">Nombre de la Sala</label>
-                    <input type="text" class="form-control" id="nombreDeLaSala" name="nombreDeLaSala">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="submit" class="btn btn-success">Crear</button>
-            </div>
-        </form>
-    </div>
-  </div>
 </div>
 
 <!-- MODALS -->
@@ -104,6 +84,47 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                     <button type="submit" class="btn btn-success submitBtn">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para añadir una sala -->
+<div class="modal fade" id="crearSala" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Crear una Sala</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="POST" action="/listaDeSalas">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Nombre de la Sala</label>
+                        <input type="text" class="form-control" id="nombreDeLaSala" name="nombreDeLaSala">
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="radioButtonPublicRoom" id="exampleRadios1"
+                            value="option1" checked>
+                        <label class="form-check-label" for="exampleRadios1">
+                            Sala pública
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="radioButtonPublicRoom" id="exampleRadios2"
+                            value="option2">
+                        <label class="form-check-label" for="exampleRadios2">
+                            Sala privada
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-success">Crear</button>
                 </div>
             </form>
         </div>
