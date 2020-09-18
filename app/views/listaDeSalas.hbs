@@ -10,13 +10,11 @@
         {{else}}
             <img src="avatar.jpg" alt="Avatar" id="avatarImgSalaChat" class="avatar cursor-pointer margin-right-20"/>
         {{/if}}
-        <div id="nombreUsuario" class="margin-right-20">{{nameInput}}</div>
+        <div id="nombreUsuario" class="margin-right-20 name-user"> {{nameInput}}!</div>
         <div class="margin-right-35">
-            <button class="btn btn-light" data-toggle="modal" data-target="#modalForm">
-                Editar Perfil
-            </button>
+            <a href="#" data-toggle="modal" data-target="#modalForm" class="fa fa-cog fa-spin fa-2x fa-fw" title="Editar Perfil"></a>
         </div>
-        <div class=""><a href="/logout"><i class="fa fa-sign-out fa-3x" aria-hidden="true"></i><div>Salir</div></a></div>
+        <a href="/logout"><i class="fa fa-sign-out fa-2x" title="Salir"></i></a>
     </div>
 </div>
 <div class="main">

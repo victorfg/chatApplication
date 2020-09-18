@@ -77,8 +77,12 @@ a {
     color: black !important;
 }
 
-a:hover{
+a:hover {
    color:black !important;
+}
+
+i:hover .tooltip {
+    display: block;
 }
 
 .name-user{
