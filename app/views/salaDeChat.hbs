@@ -29,13 +29,11 @@
             {{else}}
                 <img src="avatar.jpg" alt="Avatar" id="avatarImgSalaChat" class="avatar cursor-pointer margin-right-20"/>
             {{/if}}
-            <div id="nombreUsuario"class="crear-sala margin-right-20">{{nameInput}}</div>
+            <div id="nombreUsuario"class="crear-sala margin-right-20 name-user">{{nameInput}}</div>
             <div class="crear-sala margin-right-35">
-                <button class="btn btn-light" data-toggle="modal" data-target="#modalForm">
-                    Editar Perfil
-                </button>
+                <a href="#" data-toggle="modal" data-target="#modalForm" class="fa fa-cog fa-spin fa-2x fa-fw" title="Editar Perfil"></a>
             </div>
-            <div class="logout-div"><a href="/logout"><i class="fa fa-sign-out fa-3x" aria-hidden="true"></i><div>Salir</div></a></div>
+            <a href="/logout"><i class="fa fa-sign-out fa-2x" title="Salir"></i></a>
         </div>
     </div>
     <div class="sub-header-right">
@@ -76,7 +74,7 @@
                             </li>
                         {{/each}}
                     </ul>
-                </div>     
+                </div>
         </div>
         <div class="text-area-chat">
             <div class="text-area"></div>
@@ -93,7 +91,7 @@
                             </li>
                         {{/each}}
                     </ul>
-                </div>     
+                </div>
         </div>
     </div>
 </div>
@@ -126,7 +124,7 @@
                         <input value="{{emailInput}}" type="email" class="form-control" id="emailInput" name="emailInput" placeholder="email">
                     </div>
                 </div>
-                
+
                 <!-- Modal Footer -->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>

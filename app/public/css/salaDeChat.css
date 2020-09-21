@@ -21,7 +21,7 @@ body{
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    height: 75px;
+    height: 100px;
     position: relative;
 }
 .main{
@@ -154,9 +154,14 @@ a:hover{
     position: absolute;
     left: 40%;
     font-size: 20px;
+    font-weight: bold;
 }
 .div-icon-add-friend{
     position: absolute;
     right: 25px;
     cursor: pointer;
+}
+.name-user{
+    font-size: 20px;
+    font-weight: bold;
 }
