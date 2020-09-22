@@ -24,12 +24,12 @@
             <button type="button" class="btn btn-light" data-toggle="modal" data-target="#crearSala" data-whatever="@mdo">Crear Sala</button>
         </div>
         <div class="md-form mt-0 buscar">
-            <input class="form-control" type="text" placeholder="Buscar Sala" aria-label="Search">
+            <input id="inputSearchRooms" onkeyup="searchFunction()" class="form-control" type="text" placeholder="Busca por sala..." aria-label="Search">
         </div>
     </div>
     <div class="margins-container">
         <div class="list-container">
-            <ul class="ul-margins">
+            <ul id="myUL" class="ul-margins">
                 {{#each roomsUser}}
                     <li class="item-name cursor-pointer">
                         <a method="GET" href="/salaDeChat?id={{_id}}" class="a-element-link-item">{{this.nombreDeLaSala}}</a>
@@ -128,3 +128,25 @@
         </div>
     </div>
 </div>
+
+<script>
+    function searchFunction() {
+        // Declare variables
+        var input, filter, ul, li, a, i, txtValue;
+        input = document.getElementById('inputSearchRooms');
+        filter = input.value.toUpperCase();
+        ul = document.getElementById("myUL");
+        li = ul.getElementsByTagName('li');
+
+        // Loop through all list items, and hide those who don't match the search query
+        for (i = 0; i < li.length; i++) {
+            a = li[i].getElementsByTagName("a")[0];
+            txtValue = a.textContent || a.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                li[i].style.display = "";
+            } else {
+                li[i].style.display = "none";
+            }
+        }
+    }
+</script>
