@@ -22,9 +22,22 @@ getsCtrl.renderRegistrarUsuario= (req, res) => {
 }; 
 
 getsCtrl.renderListaDeSalas= async(req, res) => {
-    const rooms = await RoomModel.find({ user: req.user.id })
-    .sort({ date: "desc" })
-    .lean();
+    const rooms = await RoomModel.find(
+            {
+                $or: [
+                    {
+                        user: req.user.id,
+                        isPublicRoom: false
+                    },
+                    {
+                        isPublicRoom: true
+                    },
+                ]
+            },
+        )
+        .sort({ isPublicRoom: "asc",date: "desc" })
+        .lean();
+    console.log(req.user)
     res.render('listaDeSalas', {
         title: 'Lista de Salas',
         logo: 'logo.png',
@@ -62,11 +75,13 @@ getsCtrl.renderSalaDeChat= async(req, res) => {
     let arrayUsers = getAllUsersLessActive.map((item)=>{
         return { nameInput:item.nameInput, emailInput:item.emailInput, _id:item._id }
     });
+
     res.render('salaDeChat', {
         title: 'Sala de Chat',
         style: 'salaDeChat.css',
         friendsNames: ['Juan','Maria','Pedro','Teresa','Sara'],
         activeRoom: activeRoom.nombreDeLaSala,
+        idRoom: activeRoom._id,
         nameInput:req.user.nameInput,
         emailInput:req.user.emailInput,
         idDeLaSala:req.query.id,
