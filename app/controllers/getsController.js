@@ -46,6 +46,11 @@ getsCtrl.renderSalaDeChatNoRegistrado= (req, res) => {
 
 getsCtrl.renderSalaDeChat= async(req, res) => {
     const activeRoom = await RoomModel.findOne({ _id: req.query.id });
+    // Obtenemos todas las salas públicas
+    const getPublicRooms = await RoomModel.find({ isPublicRoom: true });
+    let arrayPublicRooms = getPublicRooms.map((item)=>{
+        return { namePublicRoom:item.nombreDeLaSala }
+    });
     // Obtenemos todos los usuarios menos el activo
     const getAllUsersLessActive = await UsersModel.find({ _id: {$ne:req.user.id }});
     let arrayUsers = getAllUsersLessActive.map((item)=>{
@@ -61,7 +66,8 @@ getsCtrl.renderSalaDeChat= async(req, res) => {
         emailInput:req.user.emailInput,
         idDeLaSala:req.query.id,
         allUsers:arrayUsers,
-        avatarImage: req.user.image
+        avatarImage: req.user.image,
+        arrayPublicRooms:arrayPublicRooms
     });
 };
 

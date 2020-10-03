@@ -81,13 +81,13 @@
         </div>
         <div class="rooms-list">
               <div class="pink-title">
-                    <div class="title">Listado de salas</div>
+                    <div class="title">Listado de salas públicas</div>
                 </div>
                 <div class="menu-header">
                     <ul class="ul-margins">
-                        {{#each roomNames}}
+                        {{#each arrayPublicRooms}}
                             <li class="item-name cursor-pointer">
-                                <a href="/salaDeChat" class="a-element-link-item">{{this}}</a>
+                                <a href="/salaDeChat" class="a-element-link-item">{{this.namePublicRoom}}</a>
                             </li>
                         {{/each}}
                     </ul>
