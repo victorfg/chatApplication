@@ -75,11 +75,13 @@ getsCtrl.renderSalaDeChat= async(req, res) => {
     let arrayUsers = getAllUsersLessActive.map((item)=>{
         return { nameInput:item.nameInput, emailInput:item.emailInput, _id:item._id }
     });
+
     res.render('salaDeChat', {
         title: 'Sala de Chat',
         style: 'salaDeChat.css',
         friendsNames: ['Juan','Maria','Pedro','Teresa','Sara'],
         activeRoom: activeRoom.nombreDeLaSala,
+        idRoom: activeRoom._id,
         nameInput:req.user.nameInput,
         emailInput:req.user.emailInput,
         idDeLaSala:req.query.id,

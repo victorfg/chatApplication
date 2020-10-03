@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b3625171-718f-4f30-bf00-e59c54d6d33b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/public/js/salaDeChat.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/controllers/getsController.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/getsController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/listaDeSalas.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/listaDeSalas.hbs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/public/js/salaDeChat.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/public/js/salaDeChat.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/views/salaDeChat.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/salaDeChat.hbs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -68,7 +67,7 @@
       <workItem from="1596986405730" duration="560000" />
       <workItem from="1600509500432" duration="76000" />
       <workItem from="1601590077478" duration="5543000" />
-      <workItem from="1601746352241" duration="4639000" />
+      <workItem from="1601746352241" duration="6618000" />
     </task>
     <servers />
   </component>
@@ -81,6 +80,10 @@
     </state>
     <state x="374" y="291" width="611" height="502" key="find.popup/0.172.1360.741/1360.0.1920.1080@0.172.1360.741" timestamp="1601591182488" />
     <state x="1943" y="414" width="611" height="502" key="find.popup/0.172.1360.741/1360.0.1920.1080@1360.0.1920.1080" timestamp="1601750749803" />
+    <state x="1957" y="245" key="run.anything.popup" timestamp="1601752420222">
+      <screen x="1360" y="0" width="1920" height="1080" />
+    </state>
+    <state x="1957" y="245" key="run.anything.popup/0.172.1360.741/1360.0.1920.1080@1360.0.1920.1080" timestamp="1601752420222" />
     <state x="1844" y="90" width="949" height="989" key="search.everywhere.popup" timestamp="1601749935986">
       <screen x="1360" y="0" width="1920" height="1080" />
     </state>
