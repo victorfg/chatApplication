@@ -64,15 +64,20 @@ getsCtrl.renderSalaDeChat= async(req, res) => {
     let arrayPublicRooms = getPublicRooms.map((item)=>{
         return { namePublicRoom:item.nombreDeLaSala }
     });
+    // Obtenemos todas las salas privadas
+    const getPrivateRooms = await RoomModel.find({ isPublicRoom: false, user: req.user.id });
+    console.log("getPrivateRooms "+getPrivateRooms)
+    let arrayPrivateRooms = getPrivateRooms.map((item)=>{
+        return { namePrivateRoom:item.nombreDeLaSala }
+    });
     // Obtenemos todos los usuarios menos el activo
     const getAllUsersLessActive = await UsersModel.find({ _id: {$ne:req.user.id }});
     let arrayUsers = getAllUsersLessActive.map((item)=>{
-        return { nameInput:item.nameInput, emailInput:item.emailInput }
+        return { nameInput:item.nameInput, emailInput:item.emailInput, _id:item._id }
     });
     res.render('salaDeChat', {
         title: 'Sala de Chat',
         style: 'salaDeChat.css',
-        roomNames: ['Apps','Games','Movies','Books','Newspapers'],
         friendsNames: ['Juan','Maria','Pedro','Teresa','Sara'],
         activeRoom: activeRoom.nombreDeLaSala,
         nameInput:req.user.nameInput,
@@ -80,7 +85,8 @@ getsCtrl.renderSalaDeChat= async(req, res) => {
         idDeLaSala:req.query.id,
         allUsers:arrayUsers,
         avatarImage: req.user.image,
-        arrayPublicRooms:arrayPublicRooms
+        arrayPublicRooms:arrayPublicRooms,
+        arrayPrivateRooms:arrayPrivateRooms
     });
 };
 
