@@ -4,20 +4,6 @@
             <img class="logo"src="/logo.png" alt="logo" />
         </a>
     </div>
-    <div class="pink-title margin-top-20">
-        <div class="title">Conversaciones activas</div>
-    </div>
-    <div class="flex-container">
-        <div class="menu-header">
-             <ul class="ul-margins">
-                {{#each roomNames}}
-                    <li class="item-name cursor-pointer">
-                        <a href="/salaDeChat" class="a-element-link-item">{{this}}</a>
-                    </li>
-                {{/each}}
-            </ul>
-        </div>
-    </div>
 </div>
 
 <div class="main">
@@ -64,13 +50,13 @@
     <div class="display-flex">
         <div class="friends-list">
                 <div class="pink-title">
-                    <div class="title">Listado amigos</div>
+                    <div class="title">Listado de salas privadas</div>
                 </div>
                 <div class="menu-header">
                     <ul class="ul-margins">
-                        {{#each friendsNames}}
+                        {{#each arrayPrivateRooms}}
                             <li class="item-name cursor-pointer">
-                                <a href="/salaDeChat" class="a-element-link-item">{{this}}</a>
+                                <a href="/salaDeChat" class="a-element-link-item">{{this.namePrivateRoom}}</a>
                             </li>
                         {{/each}}
                     </ul>
