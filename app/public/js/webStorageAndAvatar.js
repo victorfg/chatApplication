@@ -49,13 +49,11 @@ function saveImageToLocalStorage(codeBase64) {
 
 $(document).ready(function () {
     $('.stored').keyup(function () {
-        localStorage.setItem('email', $(this).val());
-        console.log($(this).val());
-        console.log(window.localStorage);
+        localStorage.setItem('user-name', $(this).val());
     });
     function init() {
-        if (localStorage.getItem('email')) {
-            $('#nombreUsuario').text(localStorage.getItem('email'));
+        if (localStorage.getItem('user-name')) {
+            $('#nombreUsuario').text(localStorage.getItem('user-name'));
         } 
         if (document.getElementById('avatarImgSalaChat') && localStorage.getItem('avatar')){
             var dataImage = localStorage.getItem('avatar');

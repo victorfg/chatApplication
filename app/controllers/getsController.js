@@ -37,12 +37,12 @@ getsCtrl.renderListaDeSalas= async(req, res) => {
         )
         .sort({ isPublicRoom: "asc",date: "desc" })
         .lean();
-    console.log(req.user)
     res.render('listaDeSalas', {
         title: 'Lista de Salas',
         logo: 'logo.png',
         style: 'listaDeSalas.css',
         roomsUser:rooms,
+        userId:req.user._id,
         nameInput:req.user.nameInput,
         emailInput:req.user.emailInput,
         avatarImage: req.user.image
@@ -87,6 +87,7 @@ getsCtrl.renderSalaDeChat= async(req, res) => {
         idDeLaSala:req.query.id,
         allUsers:arrayUsers,
         avatarImage: req.user.image,
+        idUser: req.user._id,
         arrayPublicRooms:arrayPublicRooms,
         arrayPrivateRooms:arrayPrivateRooms
     });

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-const UserSchema = new Schema({
+const RoomSchema = new Schema({
     nombreDeLaSala: {
         type: String,
         required: true
@@ -16,4 +16,4 @@ const UserSchema = new Schema({
     }
 });
 
-module.exports = mongoose.model('Room', UserSchema);
+module.exports = mongoose.model('Room', RoomSchema);

@@ -7,6 +7,8 @@ socket.on('message', function(message) {
     if(idRoom != message.idRoom){
         return;
     }
+    $.post( "/saveMessage",message,null);
+
     $("#messages").append('<li><b>'+message.author+'</b>: '+message.text+'</li>');
 })
 
@@ -18,7 +20,8 @@ function sendMessage(e) {
     var message =
         {
             text: $("#chat-text").val(),
-            author: localStorage.getItem("email"),
+            author: localStorage.getItem("user-name"),
+            idUser: localStorage.getItem("user-id"),
             idRoom: document.getElementById('room-name').dataset.roomid,
         }
     ;

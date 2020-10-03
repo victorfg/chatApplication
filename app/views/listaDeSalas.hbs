@@ -10,11 +10,11 @@
         {{else}}
             <img src="avatar.jpg" alt="Avatar" id="avatarImgSalaChat" class="avatar cursor-pointer margin-right-20"/>
         {{/if}}
-        <div id="nombreUsuario" class="margin-right-20 name-user">{{nameInput}}</div>
+        <div id="nombreUsuario" data-userid="{{userId}}" class="margin-right-20 name-user">{{nameInput}}</div>
         <div class="margin-right-35">
             <a href="#" data-toggle="modal" data-target="#modalForm" class="fa fa-cog fa-spin fa-2x fa-fw" title="Editar Perfil"></a>
         </div>
-        <a href="/logout"><i class="fa fa-sign-out fa-2x" title="Salir"></i></a>
+        <a id="logout" href="/logout"><i class="fa fa-sign-out fa-2x" title="Salir"></i></a>
     </div>
 </div>
 <div class="main">
@@ -130,6 +130,19 @@
 </div>
 
 <script>
+    $( document ).ready(function() {
+        user = document.getElementById('nombreUsuario');
+        userId = user.dataset.userid;
+        userName = user.innerText;
+        localStorage.setItem('user-id', userId);
+        localStorage.setItem('user-name', userName);
+    });
+    $("#logout").click(function(){
+        localStorage.clear();
+    });
+
+    localStorage.setItem('user-id', userId);
+    localStorage.setItem('user-name', userName);
     function searchFunction() {
         // Declare variables
         var input, filter, ul, li, a, i, txtValue;

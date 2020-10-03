@@ -20,7 +20,7 @@
             <div class="crear-sala margin-right-35">
                 <a href="#" data-toggle="modal" data-target="#modalForm" class="fa fa-cog fa-spin fa-2x fa-fw" title="Editar Perfil"></a>
             </div>
-            <a href="/logout"><i class="fa fa-sign-out fa-2x margin-right-20" title="Salir"></i></a>
+            <a id="logout"  href="/logout"><i class="fa fa-sign-out fa-2x margin-right-20" title="Salir"></i></a>
         </div>
     </div>
     <div class="sub-header-right">
@@ -152,3 +152,8 @@
         </div>
     </div>
 </div>
+<script>
+    $("#logout").click(function(){
+        localStorage.clear();
+    });
+</script>

@@ -3,6 +3,8 @@ const url = require('url');
 
 var User = require('../models/User');
 var Room = require('../models/Room');
+var Message = require('../models/Message');
+
 const postsCtrl = {};
 
 postsCtrl.postAutentificationMainPage= (req, res, next) => {
@@ -100,5 +102,15 @@ postsCtrl.postSalaListaDeSalasUpdateUser = async(req, res, next) => {
     req.flash("success_msg", "Usuario actualizado correctamente");
     res.redirect("/listaDeSalas");
 };
+
+postsCtrl.postSaveMessage = async(req, res, next) => {
+    message = req.body;
+    const { idRoom, idUser, text} = req.body;
+    messageItem = new Message({ idRoom, idUser, text});
+    messageItem.save();
+
+    res.send(200);
+};
+
 
 module.exports = postsCtrl;
