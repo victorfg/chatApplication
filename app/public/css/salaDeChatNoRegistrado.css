@@ -59,9 +59,10 @@ body{
 }
 .text-area-chat{
     width: 100%;
-    height: calc(100vh - 224px);
+    height: calc(100vh - 324px);
     background-color: #e6e6e6;
     display: flex;
+    overflow-y: auto;
 }
 .item-name{
     list-style-type: none;
@@ -100,6 +101,7 @@ body{
     margin-left: 10px;
     margin-right: 10px;
     position: relative;
+    height: calc(100vh - 360px);
 }
 .margin-top-20{
     margin-top: 20px;
@@ -107,9 +109,6 @@ body{
 form {     
     background: orange;
     padding: 3px;
-    position: absolute;
-    width: 100%;
-    bottom: 0;
 }
 form input { 
     border: 0; 
@@ -127,10 +126,43 @@ form button {
 #messages li { padding: 5px 10px; }
 #messages li:nth-child(odd) { background: #eee; }
 
+.container-form{
+    position: absolute;
+    bottom: 12vh;
+    width: 84%;
+}
+
 .footer{
     position: absolute;
     bottom: 0;
     background-color: #d9534f;;
     width: 100%;
-    height: 75px;
+    height: 10vh;
+}
+
+/* Ponemos un color de fondo y redondeamos las esquinas del thumb */
+.text-area-chat::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+.text-area-chat::-webkit-scrollbar:vertical {
+    width:10px;
+}
+
+.text-area-chat::-webkit-scrollbar-button:increment,.text-area-chat::-webkit-scrollbar-button {
+    display: none;
+} 
+
+.text-area-chat::-webkit-scrollbar:horizontal {
+    height: 10px;
+}
+
+.text-area-chat::-webkit-scrollbar-thumb {
+    background-color: #797979;
+    border-radius: 20px;
+    border: 2px solid #f1f2f3;
+}
+
+.text-area-chat::-webkit-scrollbar-track {
+    border-radius: 10px;  
 }
