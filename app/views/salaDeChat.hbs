@@ -1,3 +1,4 @@
+<script src="js/salaDeChat.js"></script>
 <div class = "header">
     <div class="center-image">
         <a href="/">
@@ -77,7 +78,12 @@
                 </div>
         </div>
         <div class="text-area-chat">
-            <div class="text-area"></div>
+            <div class="text-area">
+                <ul id="messages"></ul>
+                <form id="chat-form" onsubmit="return sendMessage(this)">
+                    <input autocomplete="off" type="text" id="chat-text" /><button type="submit" form="chat-form" value="Submit">Send</button>
+                </form>
+            </div>
         </div>
         <div class="rooms-list">
               <div class="pink-title">
