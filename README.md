@@ -5,6 +5,7 @@ A Real Time Chat Application built using Node.js, Express, Handlebars, Mongoose,
 
 * `git clone` this repo
 * `cd chatApplication` and `npm install`
+* change file `.env.example` as `.env` to load the environment variables properly
 * run `npm start`
 * open browser on http://localhost:5000/
 
