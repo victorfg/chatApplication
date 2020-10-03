@@ -23,14 +23,17 @@
         <div class="friends-list">
             
         </div>
-        <div class="text-area-chat">
+        <div class="text-area-chat" id="caca">
             <div class="text-area">
                 <ul id="messages"></ul>
-                <form id="chat-form" onsubmit="return sendMessage(this)">
-                    <input autocomplete="off" type="text" id="chat-text" /><button type="submit" form="chat-form" value="Submit">Send</button>
-                </form>
             </div>
         </div>
+        <div class="container-form">
+            <form id="chat-form" onsubmit="return sendMessage(this)">
+                <input autocomplete="off" type="text" id="chat-text" /><button type="submit" form="chat-form" value="Submit">Send</button>
+            </form>
+        </div>
+                
     </div>
 </div>
 <div class="footer"></div>
