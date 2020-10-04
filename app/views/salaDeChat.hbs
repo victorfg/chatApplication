@@ -52,7 +52,15 @@
         </div>
         <div class="text-area-chat">
             <div class="text-area">
-                <ul id="messages"></ul>
+                <ul id="messages">
+                    {{#each arrayMessages}}
+                        <li class="item-name cursor-pointer">
+                            <a href="/salaDeChat" class="a-element-link-item">{{
+                                this
+                            }}</a>
+                        </li>
+                    {{/each}}
+                </ul>
             </div>
               <div class="send-message">
             <form id="chat-form" onsubmit="return sendMessage(this)">

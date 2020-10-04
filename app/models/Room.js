@@ -6,10 +6,7 @@ const RoomSchema = new Schema({
         type: String,
         required: true
     },
-    user: {
-        type: String,
-        required: true
-    },
+    user : {type: Schema.Types.ObjectId, ref: 'User' ,required: true},
     isPublicRoom: {
         type:Boolean,
         required:true

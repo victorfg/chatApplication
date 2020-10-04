@@ -14,12 +14,11 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
-    date: {
+    created_at: {
         type:Date,
         default:Date.now
     },
     image:String,
-    subscribing : [{type: Schema.Types.ObjectId, ref: 'Message' }],
 });
 
 module.exports = mongoose.model('User', UserSchema);

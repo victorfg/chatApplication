@@ -6,14 +6,16 @@ const { Schema } = mongoose;
 // };
 
 const MessageSchema = new Schema({
-    idRoom: {
-        type: String,
-        required: true
-    },
-    idUser: {
-        type: String,
-        required: true
-    },
+    // idRoom: {
+    //     type: String,
+    //     required: true
+    // },
+    // idUser: {
+    //     type: String,
+    //     required: true
+    // },
+    room : {type: Schema.Types.ObjectId, ref: 'room' ,required: true},
+    user : {type: Schema.Types.ObjectId, ref: 'User' ,required: true},
     text: {
         type: String,
         required: true
@@ -22,7 +24,6 @@ const MessageSchema = new Schema({
         type: Date,
         required: true
     },
-    _users : [{type: Schema.Types.ObjectId, ref: 'User' }]
 });
 // }, schemaOptions);
 

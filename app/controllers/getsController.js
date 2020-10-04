@@ -78,18 +78,21 @@ getsCtrl.renderSalaDeChat= async(req, res) => {
     });
 
     //Obtain messages
-    const getAllMessagesForThisRoom = await MessageModel.find({idRoom: req.query.id})
-        .populate('subscriber');
-    // console.log(getAllMessagesForThisRoom);
-    // let arrayMessages = getAllUsersLessActive.map((item)=>{
-    //     return { idUser:item.idUser, idRoom:item.idRoom, text:item.text }
-    // });
-    console.log(getAllMessagesForThisRoom);
+    const getAllMessagesForThisRoom = await MessageModel.find({room: req.query.id})
+        .populate('user')
+        .exec();
+    //{ idUser: item.user._id,username: item.user.nameInput , idRoom:item.room._id, text:item.text }
+    let arrayMessages = getAllMessagesForThisRoom.map((item)=>{
+        return '<li><small>'+ item.created_at +'</small><b>'+item.user.nameInput+'</b>: '+item.text+'</li>';
+    });
+
+    console.log(arrayMessages);
+
     res.render('salaDeChat', {
         title: 'Sala de Chat',
         style: 'salaDeChat.css',
         friendsNames: ['Juan','Maria','Pedro','Teresa','Sara'],
-        messages: getAllMessagesForThisRoom,
+        messages: arrayMessages,
         activeRoom: activeRoom.nombreDeLaSala,
         idRoom: activeRoom._id,
         nameInput:req.user.nameInput,

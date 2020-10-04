@@ -70,11 +70,13 @@ postsCtrl.postRegistrarUsuario= async (req, res, next) => {
 };
 
 postsCtrl.postListaDeSalas = async(req, res, next) => {
-    const { nombreDeLaSala } = req.body;
-    const newRoom = new Room({ nombreDeLaSala });
-    newRoom.user = req.user.id;
-    newRoom.isPublicRoom = req.body.radioButtonPublicRoom == "option1" ? true : false;
+    const nombreDeLaSala = req.body.nombreDeLaSala;
+    const user = req.user.id;
+    const isPublicRoom = req.body.radioButtonPublicRoom == "option1" ? true : false;
+
+    const newRoom = new Room({ user:user,nombreDeLaSala: nombreDeLaSala,isPublicRoom: isPublicRoom });
     await newRoom.save();
+
     req.flash("success_msg", "Sala agregada correctamente");
     res.redirect("/listaDeSalas");
 };
@@ -106,7 +108,7 @@ postsCtrl.postSalaListaDeSalasUpdateUser = async(req, res, next) => {
 postsCtrl.postSaveMessage = async(req, res, next) => {
     message = req.body;
     const { idRoom, idUser, text, created_at} = req.body;
-    messageItem = new Message({ idRoom, idUser, text, created_at});
+    messageItem = new Message({ room:idRoom, user:idUser, text:text, created_at:created_at});
     messageItem.save();
 
     res.send(200);
