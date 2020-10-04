@@ -162,6 +162,8 @@
             from_user: localStorage.getItem("user-id"),
             to_user: $(this).data('to-user')
         };
-        $.post( "/savePending",pending,null);
+        $.post( "/savePending",pending,function(data) {
+            //$( ".result" ).html( data );
+        });
     });
 </script>

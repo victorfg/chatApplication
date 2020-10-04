@@ -119,10 +119,30 @@ postsCtrl.postSaveMessage = async(req, res, next) => {
 postsCtrl.savePending = async(req, res, next) => {
     const { from_user, to_user} = req.body;
     const status = 'pending';
+    //comprobamos si existe una petición que esté pending o accepted.
+    const userItem = await PendingModel.findOne(
+        {
+            $or: [
+                {
+                    from_user:from_user, to_user:to_user, status:'pending'
+                },
+                {
+                    from_user:from_user, to_user:to_user, status:'accepted'
+                },
+            ]
+        },
+    );
+    if(userItem){ //si existe devolvemos error
+        res.send(200, {error:'existing pending found'});
+        return;
+    }
     pendingItem = new PendingModel({ from_user:from_user, to_user:to_user, status:status });
     pendingItem.save();
 
-    res.send(200);
+    var responseUser = await User.findOne({_id: to_user});
+    responseUser = JSON.parse(JSON.stringify(responseUser))
+    responseUser.status = status;
+    res.send(200,responseUser);
 };
 
 postsCtrl.saveFriend = async(req, res, next) => {
