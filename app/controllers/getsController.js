@@ -66,13 +66,12 @@ getsCtrl.renderSalaDeChat= async(req, res) => {
     // Obtenemos todas las salas públicas
     const getPublicRooms = await RoomModel.find({ isPublicRoom: true });
     let arrayPublicRooms = getPublicRooms.map((item)=>{
-        return { namePublicRoom:item.nombreDeLaSala }
+        return { id:item._id, namePublicRoom:item.nombreDeLaSala }
     });
     // Obtenemos todas las salas privadas
     const getPrivateRooms = await RoomModel.find({ isPublicRoom: false, user: req.user.id });
-    console.log("getPrivateRooms "+getPrivateRooms)
     let arrayPrivateRooms = getPrivateRooms.map((item)=>{
-        return { namePrivateRoom:item.nombreDeLaSala }
+        return { id:item._id, namePrivateRoom:item.nombreDeLaSala }
     });
     // Obtenemos todos los usuarios menos el activo
     const getAllUsersLessActive = await UserModel.find({ _id: {$ne:req.user.id }});

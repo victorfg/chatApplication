@@ -14,7 +14,7 @@ const MessageSchema = new Schema({
     //     type: String,
     //     required: true
     // },
-    room : {type: Schema.Types.ObjectId, ref: 'room' ,required: true},
+    room : {type: Schema.Types.ObjectId, ref: 'Room' ,required: true},
     user : {type: Schema.Types.ObjectId, ref: 'User' ,required: true},
     text: {
         type: String,

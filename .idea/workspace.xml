@@ -2,15 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b3625171-718f-4f30-bf00-e59c54d6d33b" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/models/Friend.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/models/Pending.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/models/UserRoom.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/controllers/getsController.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/getsController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/public/js/salaDeChat.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/public/js/salaDeChat.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/public/js/salaDeChatNoRegistrado.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/public/js/salaDeChatNoRegistrado.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/public/lib/date.format.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/Message.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/Message.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/views/salaDeChat.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/salaDeChat.hbs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/salaDeChatNoRegistrado.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/salaDeChatNoRegistrado.hbs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,13 +47,13 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public/js" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/app/models" />
       <recent name="$PROJECT_DIR$/app/public/js" />
       <recent name="$PROJECT_DIR$/models" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/public/js" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -75,7 +73,7 @@
       <workItem from="1601590077478" duration="5543000" />
       <workItem from="1601746352241" duration="16156000" />
       <workItem from="1601800165876" duration="3623000" />
-      <workItem from="1601805843896" duration="12725000" />
+      <workItem from="1601805843896" duration="14612000" />
     </task>
     <servers />
   </component>

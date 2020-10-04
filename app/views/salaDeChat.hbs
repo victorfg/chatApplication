@@ -44,7 +44,7 @@
                     <ul class="ul-margins">
                         {{#each arrayPrivateRooms}}
                             <li class="item-name cursor-pointer">
-                                <a href="/salaDeChat" class="a-element-link-item">{{this.namePrivateRoom}}</a>
+                                <a href="/salaDeChat?id={{this.id}}" class="a-element-link-item">{{this.namePrivateRoom}}</a>
                             </li>
                         {{/each}}
                     </ul>
@@ -72,7 +72,7 @@
                     <ul class="ul-margins">
                         {{#each arrayPublicRooms}}
                             <li class="item-name cursor-pointer">
-                                <a href="/salaDeChat" class="a-element-link-item">{{this.namePublicRoom}}</a>
+                                <a href="/salaDeChat?id={{this.id}}" class="a-element-link-item">{{this.namePublicRoom}}</a>
                             </li>
                         {{/each}}
                     </ul>
