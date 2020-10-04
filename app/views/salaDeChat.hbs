@@ -1,16 +1,14 @@
 <script src="/lib/date.format.js"></script>
 <script src="js/salaDeChat.js"></script>
-<div class = "header">
-    <div class="center-image">
-        <a href="/">
-            <img class="logo"src="/logo.png" alt="logo" />
-        </a>
-    </div>
-</div>
 
 <div class="main">
     <div class="header-right">
         <div class="margins-container">
+            <div class="center-image">
+                <a href="/">
+                    <img class="logo"src="/logo.png" alt="logo" />
+                </a>
+            </div>
             <div class="room-name" id="room-name" data-roomid="{{idRoom}}" >Sala: {{activeRoom}}</div>
             {{#if avatarImage}}
                 <img src="./uploads/{{avatarImage}}" alt="Avatar" id="avatarImgSalaChat" class="avatar cursor-pointer margin-right-20"/>
@@ -25,31 +23,19 @@
         </div>
     </div>
     <div class="sub-header-right">
-        <div class="margins-container justify-content-space-around">
-            <div class="crear-sala">
+        <div class="margins-container-subheader">
+            <div class="crear-sala margin-right-20">
                 <a href="#" type="button" class="btn btn-light">Amigos</a>
             </div>
-            <div class="crear-sala">
-                <a href="#" type="button" class="btn btn-light">Conectados</a>
-            </div>
-             <div class="crear-sala">
-                <a href="#" type="button" class="btn btn-light">Todos</a>
-            </div>
-            <div class="crear-sala">
+            <div class="crear-sala margin-right-20">
                 <a href="#" type="button" class="btn btn-light">Pendiente</a>
-            </div>
-             <div class="crear-sala">
-                <a href="#" type="button" class="btn btn-light">Bloqueado</a>
             </div>
             <div class="crear-sala">
                 <button type="button" data-toggle="modal" data-target="#addFriendModal" class="btn btn-light">Añadir amigo </button>
             </div>
-             <div class="crear-sala">
-                <a href="#" type="button" class="btn btn-light">Crear grupo</a>
-            </div>
         </div>
     </div>
-    <div class="display-flex">
+    <div class="display-flex margin-top-15">
         <div class="friends-list">
                 <div class="pink-title">
                     <div class="title">Listado de salas privadas</div>
@@ -67,10 +53,12 @@
         <div class="text-area-chat">
             <div class="text-area">
                 <ul id="messages"></ul>
-                <form id="chat-form" onsubmit="return sendMessage(this)">
-                    <input autocomplete="off" type="text" id="chat-text" /><button type="submit" form="chat-form" value="Submit">Send</button>
-                </form>
             </div>
+              <div class="send-message">
+            <form id="chat-form" onsubmit="return sendMessage(this)">
+                <input autocomplete="off" type="text" id="chat-text" /><button type="submit" form="chat-form" value="Submit">Enviar</button>
+            </form>
+        </div>
         </div>
         <div class="rooms-list">
               <div class="pink-title">
