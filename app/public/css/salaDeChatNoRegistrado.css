@@ -175,3 +175,13 @@ a{
     font-size: 20px;
     font-weight: bold;
 }
+#messages li {
+    position: relative;
+}
+#messages small {
+    color: #808080;
+    position: absolute;
+    right: 40px;
+    top: 11px;
+    font-size: 11px;
+}

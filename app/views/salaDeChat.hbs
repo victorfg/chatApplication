@@ -9,7 +9,15 @@
                     <img class="logo"src="/logo.png" alt="logo" />
                 </a>
             </div>
-            <div class="room-name" id="room-name" data-roomid="{{idRoom}}" >Sala: {{activeRoom}}</div>
+            <div class="room-name" id="room-name" data-roomid="{{idRoom}}">
+                Sala: {{activeRoom}}
+                {{#if activeRoomPublic}}
+                    <span class="badge badge-primary etiqueta-sala">Sala publica</span>
+                {{else}}
+                    <span class="margin-left-15"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                    <span class="badge badge-secondary etiqueta-sala">Sala privada</span>
+                {{/if}}
+            </div>
             {{#if avatarImage}}
                 <img src="./uploads/{{avatarImage}}" alt="Avatar" id="avatarImgSalaChat" class="avatar cursor-pointer margin-right-20"/>
             {{else}}

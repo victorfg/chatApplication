@@ -95,6 +95,7 @@ getsCtrl.renderSalaDeChat= async(req, res) => {
         friendsNames: ['Juan','Maria','Pedro','Teresa','Sara'],
         arrayMessages: arrayMessages,
         activeRoom: activeRoom.nombreDeLaSala,
+        activeRoomPublic: activeRoom.isPublicRoom,
         idRoom: activeRoom._id,
         nameInput:req.user.nameInput,
         emailInput:req.user.emailInput,
