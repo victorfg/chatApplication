@@ -223,3 +223,10 @@ a:hover{
     top: 6px;
     font-size: 11px;
 }
+.etiqueta-sala{
+    margin-left: 15px;
+    font-size: 11px !important;
+}
+.margin-left-15{
+    margin-left: 15px;
+}
