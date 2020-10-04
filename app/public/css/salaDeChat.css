@@ -59,10 +59,39 @@ body{
 .text-area-chat{
     width: 70%;
     height: calc(100vh - 340px);
-    background-color: #e6e6e6;
+    background-color: white;
     display: flex;
     border-radius: 5px;
+    overflow-y: auto;
 }
+
+/* Ponemos un color de fondo y redondeamos las esquinas del thumb */
+.text-area-chat::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+.text-area-chat::-webkit-scrollbar:vertical {
+    width:10px;
+}
+
+.text-area-chat::-webkit-scrollbar-button:increment,.text-area-chat::-webkit-scrollbar-button {
+    display: none;
+} 
+
+.text-area-chat::-webkit-scrollbar:horizontal {
+    height: 10px;
+}
+
+.text-area-chat::-webkit-scrollbar-thumb {
+    background-color: #797979;
+    border-radius: 20px;
+    border: 2px solid #f1f2f3;
+}
+
+.text-area-chat::-webkit-scrollbar-track {
+    border-radius: 10px;  
+}
+
 .rooms-list{
     width: 15%;
     margin-right: 5px;
@@ -120,7 +149,6 @@ body{
 .footer{
     position: absolute;
     bottom: 0;
-    background-color: #d9534f;;
     width: 100%;
     height: 9vh;
 }
@@ -169,15 +197,15 @@ a:hover{
 }
 .send-message{
     position: absolute;
-    bottom: 9vh;
+    bottom: 6vh;
 }
 #chat-form{
     background: orange;
-    padding: 10px;
+    padding: 5px;
     border-radius: 10px;
 }
 #chat-form input{
-    width: 58vw;
+    width: 59vw;
     border: 0;
     padding: 10px;
 }
@@ -186,4 +214,17 @@ a:hover{
     background: #ffa834;
     border: none;
     font-weight: bold;
+}
+#messages li{
+    list-style-type: none;
+    margin-top: 5px;
+    position: relative;
+}
+
+#messages li small{
+    color: #808080;
+    position: absolute;
+    right: 40px;
+    top: 6px;
+    font-size: 11px;
 }
