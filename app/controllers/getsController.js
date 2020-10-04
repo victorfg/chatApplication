@@ -4,6 +4,9 @@ const UserModel = require('../models/User.js');
 const RoomModel = require('../models/Room.js');
 const MessageModel = require('../models/Message.js');
 
+var moment = require('moment');
+//const dateFormatModule = require('./public/lib/date.format.js');
+
 getsCtrl.renderMainPage= (req, res) => {
     res.render('index', {
         title: 'Pagina Inicio',
@@ -83,16 +86,15 @@ getsCtrl.renderSalaDeChat= async(req, res) => {
         .exec();
     //{ idUser: item.user._id,username: item.user.nameInput , idRoom:item.room._id, text:item.text }
     let arrayMessages = getAllMessagesForThisRoom.map((item)=>{
-        return '<li><small>'+ item.created_at +'</small><b>'+item.user.nameInput+'</b>: '+item.text+'</li>';
+        var fomatted_date = moment(item.created_at).calendar();
+        return { date: fomatted_date,username: item.user.nameInput, text:item.text};
     });
-
-    console.log(arrayMessages);
 
     res.render('salaDeChat', {
         title: 'Sala de Chat',
         style: 'salaDeChat.css',
         friendsNames: ['Juan','Maria','Pedro','Teresa','Sara'],
-        messages: arrayMessages,
+        arrayMessages: arrayMessages,
         activeRoom: activeRoom.nombreDeLaSala,
         idRoom: activeRoom._id,
         nameInput:req.user.nameInput,

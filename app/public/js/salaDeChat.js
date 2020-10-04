@@ -6,7 +6,8 @@ socket.on('message', function(message) {
     idRoom = document.getElementById('room-name').dataset.roomid;
 
     var now = new Date();
-    var dateTime = now.format("isoDateTime");
+    var dateTime = moment(now).toISOString();
+    var fomatted_date = moment(now).calendar();
 
     message.created_at=dateTime;
     if(idRoom != message.idRoom){
@@ -15,7 +16,7 @@ socket.on('message', function(message) {
     $.post( "/saveMessage",message,null);
 
 
-    $("#messages").append('<li><small>'+ dateTime +'</small><b>'+message.author+'</b>: '+message.text+'</li>');
+    $("#messages").append('<li><small>'+ fomatted_date +'</small><b>'+message.author+'</b>: '+message.text+'</li>');
 })
 
 function sendMessage(e) {

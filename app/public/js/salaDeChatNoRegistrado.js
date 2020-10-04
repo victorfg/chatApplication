@@ -2,10 +2,11 @@ var socket = io.connect('http://localhost:5000',{
     'forceNew':true
 });
 
-socket.on('message', function(data) {
-    data.forEach(function(message,key,data){
-        $("#messages").append('<li><b>'+message.author+'</b>: '+message.text+'</li>');
-    });
+socket.on('message', function(message) {
+    var now = new Date();
+    var fomatted_date = moment(now).calendar();
+
+    $("#messages").append('<li><small>'+ fomatted_date +'</small><b>'+message.author+'</b>: '+message.text+'</li>');
 })
 
 function sendMessage(e) {
@@ -13,12 +14,10 @@ function sendMessage(e) {
         console.log('no hay texto, no enviamos');
         return false;
     }
-    var message = [
-        {
-            text: $("#chat-text").val(),
-            author: localStorage.getItem("user-name"),
-        }
-    ];
+    var message = {
+        text: $("#chat-text").val(),
+        author: localStorage.getItem("user-name"),
+    };
     socket.emit('message', message)
 
     //scroll al ultimo mensaje y seteamos el input value del mensaje
