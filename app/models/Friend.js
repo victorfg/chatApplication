@@ -7,11 +7,7 @@ const schemaOptions = {
 
 const FriendSchema = new Schema({
     user : {type: Schema.Types.ObjectId, ref: 'User' ,required: true},
-    friend : {type: Schema.Types.ObjectId, ref: 'Friend' ,required: true},
-    isBlocked: {
-        type: Boolean,
-            required: true
-    },
+    friend : {type: Schema.Types.ObjectId, ref: 'User' ,required: true},
 }, schemaOptions);
 
 module.exports = mongoose.model('Friend', FriendSchema);

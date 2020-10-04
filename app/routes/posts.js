@@ -11,6 +11,9 @@ const {
     postSalaDeChatUpdateUser,
     postSalaListaDeSalasUpdateUser,
     postSaveMessage,
+    savePending,
+    saveFriend,
+    saveUserRoom,
 } = require("../controllers/postsController");
 
 var storage = multer.diskStorage({
@@ -36,5 +39,11 @@ router.post("/salaDeChatUpdateUser",postSalaDeChatUpdateUser);
 router.post("/salaListaDeSalasUpdateUser",postSalaListaDeSalasUpdateUser);
 
 router.post("/saveMessage",postSaveMessage);
+
+router.post("/savePending",savePending);
+
+router.post("/saveFriend",saveFriend);
+
+router.post("/saveUserRoom",saveUserRoom);
 
 module.exports = router;

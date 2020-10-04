@@ -8,7 +8,7 @@ const schemaOptions = {
 const UserRoomSchema = new Schema({
     user : {type: Schema.Types.ObjectId, ref: 'User' ,required: true},
     room : {type: Schema.Types.ObjectId, ref: 'Room' ,required: true},
-    inRoom: {
+    in_room: {
         type: Boolean,
         required: true
     },

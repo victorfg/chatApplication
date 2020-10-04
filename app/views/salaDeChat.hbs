@@ -145,7 +145,7 @@
                     <li class="list-group-item">
                         <div class="display-flex">
                             <div>{{this.nameInput}}</div>
-                            <div class="div-icon-add-friend"><i class="fa fa-user-plus" aria-hidden="true"></i></div>
+                            <div class="div-icon-add-friend" data-to-user="{{this._id}}"><i class="fa fa-user-plus" aria-hidden="true"></i></div>
                         </div>
                     </li>
                 {{/each}}
@@ -156,5 +156,12 @@
 <script>
     $("#logout").click(function(){
         localStorage.clear();
+    });
+    $('.div-icon-add-friend').click(function() {
+        var pending = {
+            from_user: localStorage.getItem("user-id"),
+            to_user: $(this).data('to-user')
+        };
+        $.post( "/savePending",pending,null);
     });
 </script>

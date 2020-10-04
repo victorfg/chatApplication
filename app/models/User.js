@@ -18,6 +18,7 @@ const UserSchema = new Schema({
         type:Date,
         default:Date.now
     },
+    friends : [{type: Schema.Types.ObjectId, ref: 'Friend' ,required: true}],
     image:String,
 });
 

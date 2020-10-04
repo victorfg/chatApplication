@@ -1,9 +1,12 @@
 const passport = require('passport');
-const url = require('url');  
+const url = require('url');
 
-var User = require('../models/User');
-var Room = require('../models/Room');
-var Message = require('../models/Message');
+const User = require('../models/User');
+const Room = require('../models/Room');
+const Message = require('../models/Message');
+const PendingModel = require('../models/Pending.js');
+const FriendModel = require('../models/Friend.js');
+const UserRoomModel = require('../models/UserRoom.js');
 
 const postsCtrl = {};
 
@@ -106,13 +109,38 @@ postsCtrl.postSalaListaDeSalasUpdateUser = async(req, res, next) => {
 };
 
 postsCtrl.postSaveMessage = async(req, res, next) => {
-    message = req.body;
     const { idRoom, idUser, text, created_at} = req.body;
     messageItem = new Message({ room:idRoom, user:idUser, text:text, created_at:created_at});
     messageItem.save();
 
     res.send(200);
 };
+
+postsCtrl.savePending = async(req, res, next) => {
+    const { from_user, to_user} = req.body;
+    const status = 'pending';
+    pendingItem = new PendingModel({ from_user:from_user, to_user:to_user, status:status });
+    pendingItem.save();
+
+    res.send(200);
+};
+
+postsCtrl.saveFriend = async(req, res, next) => {
+    const { user, friend, is_blocked } = req.body;
+    friendItem = new FriendModel({ user:user, friend:friend, is_blocked:is_blocked }) ;
+    friendItem.save();
+
+    res.send(200);
+};
+
+postsCtrl.saveUserRoom = async(req, res, next) => {
+    const { user, room, in_room } = req.body;
+    userItem = new FriendModel({ user:user, room:room, in_room:in_room }) ;
+    userItem.save();
+
+    res.send(200);
+};
+
 
 
 module.exports = postsCtrl;

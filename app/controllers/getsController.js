@@ -3,6 +3,9 @@ const getsCtrl = {};
 const UserModel = require('../models/User.js');
 const RoomModel = require('../models/Room.js');
 const MessageModel = require('../models/Message.js');
+const PendingModel = require('../models/Pending.js');
+const FriendModel = require('../models/Friend.js');
+const UserRoomModel = require('../models/UserRoom.js');
 
 var moment = require('moment');
 //const dateFormatModule = require('./public/lib/date.format.js');
@@ -73,8 +76,28 @@ getsCtrl.renderSalaDeChat= async(req, res) => {
     let arrayPrivateRooms = getPrivateRooms.map((item)=>{
         return { id:item._id, namePrivateRoom:item.nombreDeLaSala }
     });
-    // Obtenemos todos los usuarios menos el activo
-    const getAllUsersLessActive = await UserModel.find({ _id: {$ne:req.user.id }});
+
+    //obtenemos amigos
+    const getAllUserFriends = await FriendModel.find(
+        {user: req.user.id}
+    ).populate('user')
+        .exec();
+
+    let arrayNameFriends = getAllUserFriends.map((item)=>{
+        return { _id:item.user._id  , _id:item.user.nameInput  }
+    });
+
+    let arrayFriends = getAllUserFriends.map((item)=>{
+        return { _id:item.user._id }
+    });
+    arrayFriends.push(req.user.id);
+
+    //Obtenemos todos los usuarios que no sean amigos y que tampoco sea nuestro usuario
+    const getAllUsersLessActive = await UserModel.find(
+            {
+                _id: {$nin: arrayFriends}
+            }
+        );
     let arrayUsers = getAllUsersLessActive.map((item)=>{
         return { nameInput:item.nameInput, emailInput:item.emailInput, _id:item._id }
     });
@@ -83,7 +106,7 @@ getsCtrl.renderSalaDeChat= async(req, res) => {
     const getAllMessagesForThisRoom = await MessageModel.find({room: req.query.id})
         .populate('user')
         .exec();
-    //{ idUser: item.user._id,username: item.user.nameInput , idRoom:item.room._id, text:item.text }
+
     let arrayMessages = getAllMessagesForThisRoom.map((item)=>{
         var fomatted_date = moment(item.created_at).calendar();
         return { date: fomatted_date,username: item.user.nameInput, text:item.text};
@@ -92,7 +115,7 @@ getsCtrl.renderSalaDeChat= async(req, res) => {
     res.render('salaDeChat', {
         title: 'Sala de Chat',
         style: 'salaDeChat.css',
-        friendsNames: ['Juan','Maria','Pedro','Teresa','Sara'],
+        friendsNames: arrayNameFriends,
         arrayMessages: arrayMessages,
         activeRoom: activeRoom.nombreDeLaSala,
         activeRoomPublic: activeRoom.isPublicRoom,

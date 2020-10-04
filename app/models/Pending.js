@@ -6,14 +6,10 @@ const schemaOptions = {
 };
 
 const PendingSchema = new Schema({
-    from-user : {type: Schema.Types.ObjectId, ref: 'User' ,required: true},
-    to-user : {type: Schema.Types.ObjectId, ref: 'User' ,required: true},
-    state: {
+    from_user : {type: Schema.Types.ObjectId, ref: 'User' ,required: true},
+    to_user : {type: Schema.Types.ObjectId, ref: 'User' ,required: true},
+    status: {
         type: String,
-        required: true
-    },
-    created_at: {
-        type: Date,
         required: true
     },
 }, schemaOptions);
