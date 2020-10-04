@@ -51,15 +51,16 @@ $(document).ready(function () {
     $('.stored').keyup(function () {
         localStorage.setItem('user-name', $(this).val());
     });
+
     function init() {
         if (localStorage.getItem('user-name')) {
             $('#nombreUsuario').text(localStorage.getItem('user-name'));
-        } 
-        if (document.getElementById('avatarImgSalaChat') && localStorage.getItem('avatar')){
-            var dataImage = localStorage.getItem('avatar');
-            if (dataImage) {
-                document.getElementById('avatarImgSalaChat').src = dataImage;
-            }
+        }
+        var dataImage = localStorage.getItem('avatar');
+        if (dataImage) {
+            document.getElementById('avatarImgSalaChat').src = dataImage;
+        } else {
+            document.getElementById('avatarImgSalaChat').src = '/avatar.png'
         }
     }
     init();

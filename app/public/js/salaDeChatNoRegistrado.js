@@ -16,11 +16,9 @@ function sendMessage(e) {
     var message = [
         {
             text: $("#chat-text").val(),
-            author: localStorage.getItem("email"),
+            author: localStorage.getItem("user-name"),
         }
     ];
-    console.log('enviamos->');
-    console.log(message);
     socket.emit('message', message)
 
     //scroll al ultimo mensaje y seteamos el input value del mensaje
