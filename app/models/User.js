@@ -18,7 +18,8 @@ const UserSchema = new Schema({
         type:Date,
         default:Date.now
     },
-    image:String
+    image:String,
+    subscribing : [{type: Schema.Types.ObjectId, ref: 'Message' }],
 });
 
 module.exports = mongoose.model('User', UserSchema);

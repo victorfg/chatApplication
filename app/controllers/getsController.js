@@ -1,7 +1,8 @@
 const getsCtrl = {};
 
-const UsersModel = require('../models/User.js');
+const UserModel = require('../models/User.js');
 const RoomModel = require('../models/Room.js');
+const MessageModel = require('../models/Message.js');
 
 getsCtrl.renderMainPage= (req, res) => {
     res.render('index', {
@@ -71,15 +72,24 @@ getsCtrl.renderSalaDeChat= async(req, res) => {
         return { namePrivateRoom:item.nombreDeLaSala }
     });
     // Obtenemos todos los usuarios menos el activo
-    const getAllUsersLessActive = await UsersModel.find({ _id: {$ne:req.user.id }});
+    const getAllUsersLessActive = await UserModel.find({ _id: {$ne:req.user.id }});
     let arrayUsers = getAllUsersLessActive.map((item)=>{
         return { nameInput:item.nameInput, emailInput:item.emailInput, _id:item._id }
     });
 
+    //Obtain messages
+    const getAllMessagesForThisRoom = await MessageModel.find({idRoom: req.query.id})
+        .populate('subscriber');
+    // console.log(getAllMessagesForThisRoom);
+    // let arrayMessages = getAllUsersLessActive.map((item)=>{
+    //     return { idUser:item.idUser, idRoom:item.idRoom, text:item.text }
+    // });
+    console.log(getAllMessagesForThisRoom);
     res.render('salaDeChat', {
         title: 'Sala de Chat',
         style: 'salaDeChat.css',
         friendsNames: ['Juan','Maria','Pedro','Teresa','Sara'],
+        messages: getAllMessagesForThisRoom,
         activeRoom: activeRoom.nombreDeLaSala,
         idRoom: activeRoom._id,
         nameInput:req.user.nameInput,

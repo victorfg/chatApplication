@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-const schemaOptions = {
-    timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' },
-};
+// const schemaOptions = {
+//     timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' },
+// };
 
 const MessageSchema = new Schema({
     idRoom: {
@@ -15,9 +15,15 @@ const MessageSchema = new Schema({
         required: true
     },
     text: {
-        type:String,
-        required:true
-    }
-}, schemaOptions);
+        type: String,
+        required: true
+    },
+    created_at: {
+        type: Date,
+        required: true
+    },
+    _users : [{type: Schema.Types.ObjectId, ref: 'User' }]
+});
+// }, schemaOptions);
 
 module.exports = mongoose.model('Message', MessageSchema);

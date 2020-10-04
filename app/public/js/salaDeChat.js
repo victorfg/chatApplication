@@ -4,15 +4,18 @@ var socket = io.connect('http://localhost:5000',{
 
 socket.on('message', function(message) {
     idRoom = document.getElementById('room-name').dataset.roomid;
-    date = Date.now() / 1000;
 
+    var now = new Date();
+    var dateTime = now.format("isoDateTime");
+
+    message.created_at=dateTime;
     if(idRoom != message.idRoom){
         return;
     }
     $.post( "/saveMessage",message,null);
 
 
-    $("#messages").append('<li><small>'+ date +'</small><b>'+message.author+'</b>: '+message.text+'</li>');
+    $("#messages").append('<li><small>'+ dateTime +'</small><b>'+message.author+'</b>: '+message.text+'</li>');
 })
 
 function sendMessage(e) {

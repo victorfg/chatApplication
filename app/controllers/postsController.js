@@ -105,8 +105,8 @@ postsCtrl.postSalaListaDeSalasUpdateUser = async(req, res, next) => {
 
 postsCtrl.postSaveMessage = async(req, res, next) => {
     message = req.body;
-    const { idRoom, idUser, text} = req.body;
-    messageItem = new Message({ idRoom, idUser, text});
+    const { idRoom, idUser, text, created_at} = req.body;
+    messageItem = new Message({ idRoom, idUser, text, created_at});
     messageItem.save();
 
     res.send(200);
