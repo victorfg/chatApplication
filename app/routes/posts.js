@@ -12,7 +12,7 @@ const {
     postSalaListaDeSalasUpdateUser,
     postSaveMessage,
     savePending,
-    saveFriend,
+    //saveFriend,
     saveUserRoom,
 } = require("../controllers/postsController");
 
@@ -42,7 +42,7 @@ router.post("/saveMessage",postSaveMessage);
 
 router.post("/savePending",savePending);
 
-router.post("/saveFriend",saveFriend);
+//router.post("/saveFriend",saveFriend);
 
 router.post("/saveUserRoom",saveUserRoom);
 

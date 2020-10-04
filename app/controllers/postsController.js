@@ -145,18 +145,25 @@ postsCtrl.savePending = async(req, res, next) => {
     res.send(200,responseUser);
 };
 
-postsCtrl.saveFriend = async(req, res, next) => {
-    const { user, friend, is_blocked } = req.body;
-    friendItem = new FriendModel({ user:user, friend:friend, is_blocked:is_blocked }) ;
-    friendItem.save();
-
-    res.send(200);
-};
+// postsCtrl.saveFriend = async(req, res, next) => {
+//     const { user, friend, is_blocked } = req.body;
+//     friendItem = new FriendModel({ user:user, friend:friend, is_blocked:is_blocked }) ;
+//     friendItem.save();
+//
+//     res.send(200);
+// };
 
 postsCtrl.saveUserRoom = async(req, res, next) => {
-    const { user, room, in_room } = req.body;
-    userItem = new FriendModel({ user:user, room:room, in_room:in_room }) ;
-    userItem.save();
+    const { user, room } = req.body;
+
+    //save userRoom if non exists
+    var fromUserItem = await UserRoomModel.findOne({user:user, room:room });
+    if(!fromUserItem){
+        userRoomItem = new UserRoomModel({ user:user, room:room, in_room:true }) ;
+        userRoomItem.save();
+    }else{ //if exists update in_room to true
+        await UserRoomModel.findByIdAndUpdate(fromUserItem._id, { in_room:true });
+    }
 
     res.send(200);
 };

@@ -11,23 +11,34 @@ const putCtrl = {};
 
 putCtrl.updatePending = async(req, res, next) => {
     const { pending_id, status} = req.body;
-    await User.findByIdAndUpdate(pending_id, { status });
+    var pendingItem = await PendingModel.findOne({_id: pending_id});
+    pendingItem = JSON.parse(JSON.stringify(pendingItem))
+
+    await User.updateMany({
+        $or: [
+            {
+                from_user:pendingItem.from_user, to_user:pendingItem.to_user, status:'pending'
+            },
+            {
+                to_user:pendingItem.to_user, from_user:pendingItem.from_user, status:'pending'
+            },
+        ]
+    }, { $set: { status: status } });
 
     if(status==='accepted'){
-        const pendingItem = await PendingModel.findOne({_id: pending_id});
-        req.body = null;
+        //save from user if non exists
+        var fromUserItem = await FriendModel.findOne({user:pendingItem.from_user,friend:pendingItem.to_user });
+        if(!fromUserItem){
+            friendItem = new FriendModel({ user:pendingItem.from_user,friend:pendingItem.to_user }) ;
+            friendItem.save();
+        }
 
-        //save from user
-        req.body.user = pendingItem.from_user
-        req.body.friend = pendingItem.to_user
-        req.body.is_blocked = false;
-        postsController.postsCtrl.saveFriend(req, res, next);
-
-        //save to user
-        req.body.user = pendingItem.to_user
-        req.body.friend = pendingItem.from_user
-        req.body.is_blocked = false;
-        postsController.postsCtrl.saveFriend(req, res, next);
+        //save to user if non exists
+        var toUserItem = await FriendModel.findOne({ user:pendingItem.to_user, friend:pendingItem.from_user});
+        if(!toUserItem){
+            friendItem = new FriendModel({ user:pendingItem.to_user, friend:pendingItem.from_user}) ;
+            friendItem.save();
+        }
     }
 
     res.send(200);
@@ -36,7 +47,7 @@ putCtrl.updatePending = async(req, res, next) => {
 
 putCtrl.updateUserRoom = async(req, res, next) => {
     const { room_id ,in_room } = req.body;
-    await Room.findByIdAndUpdate(room_id, { in_room:in_room });
+    await UserRoomModel.findByIdAndUpdate(room_id, { in_room:in_room });
 
     res.send(200);
 };
