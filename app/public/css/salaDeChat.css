@@ -63,6 +63,7 @@ body{
     display: flex;
     border-radius: 5px;
     overflow-y: auto;
+    border: 1px solid #A8A8A8;
 }
 
 /* Ponemos un color de fondo y redondeamos las esquinas del thumb */
@@ -146,12 +147,6 @@ body{
 .margin-top-20{
     margin-top: 20px;
 }
-.footer{
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 9vh;
-}
 
 .logout-div{
     display: flex;
@@ -199,21 +194,21 @@ a:hover{
     position: absolute;
     bottom: 6vh;
 }
-#chat-form{
-    background: orange;
-    padding: 5px;
-    border-radius: 10px;
-}
 #chat-form input{
     width: 59vw;
     border: 0;
     padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #A8A8A8;
+    margin-right: 5px;
 }
 #chat-form button{
     width: 10vw;
     background: #ffa834;
     border: none;
     font-weight: bold;
+    padding: 10px;
+    border-radius: 5px;
 }
 #messages li{
     list-style-type: none;
