@@ -146,12 +146,6 @@ body{
 .margin-top-20{
     margin-top: 20px;
 }
-.footer{
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 9vh;
-}
 
 .logout-div{
     display: flex;
