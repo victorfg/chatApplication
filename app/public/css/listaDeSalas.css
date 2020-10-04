@@ -53,6 +53,32 @@ body{
     height: calc(100vh - 300px);
     border-radius: 10px;
 }
+/* Ponemos un color de fondo y redondeamos las esquinas del thumb */
+.list-container::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+.list-container::-webkit-scrollbar:vertical {
+    width:10px;
+}
+
+.list-container::-webkit-scrollbar-button:increment,.list-container::-webkit-scrollbar-button {
+    display: none;
+} 
+
+.list-container::-webkit-scrollbar:horizontal {
+    height: 10px;
+}
+
+.list-container::-webkit-scrollbar-thumb {
+    background-color: #797979;
+    border-radius: 20px;
+    border: 2px solid #f1f2f3;
+}
+
+.list-container::-webkit-scrollbar-track {
+    border-radius: 10px;  
+}
 .ul-margins{
     padding-left: 0px;
     margin-bottom: 0px;

@@ -166,3 +166,8 @@ form button {
 .text-area-chat::-webkit-scrollbar-track {
     border-radius: 10px;  
 }
+
+a{
+    text-decoration: none !important;
+    color: black !important;
+}
