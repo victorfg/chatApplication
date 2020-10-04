@@ -99,7 +99,7 @@ getsCtrl.renderSalaDeChat= async(req, res) => {
             }
         );
     let arrayUsers = getAllUsersLessActive.map((item)=>{
-        return { nameInput:item.nameInput, emailInput:item.emailInput, _id:item._id }
+        return { nameInput:item.nameInput, emailInput:item.emailInput, _id:item._id , status: 'not-pending'} // not-pending / pending
     });
 
     //Obtain messages
