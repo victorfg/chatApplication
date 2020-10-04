@@ -145,7 +145,13 @@
                     <li class="list-group-item">
                         <div class="display-flex">
                             <div>{{this.nameInput}}</div>
-                            <div class="div-icon-add-friend" data-to-user="{{this._id}}"><i class="fa fa-user-plus" aria-hidden="true"></i></div>
+                            <div class="div-icon-add-friend">
+                                {{#if this.pending}}
+                                    <i class="fa fa-hourglass-end send-cancel-pending" data-to-user="{{this._id}}" aria-hidden="true"></i>
+                                {{else}}
+                                    <i class="fa fa-user-plus send-pending" data-to-user="{{this._id}}" aria-hidden="true"></i>
+                                {{/if}}
+                            </div>
                         </div>
                     </li>
                 {{/each}}
@@ -157,13 +163,38 @@
     $("#logout").click(function(){
         localStorage.clear();
     });
-    $('.div-icon-add-friend').click(function() {
+    $(document).on('click', ".send-pending", function() {
+    //$('.send-pending').click(function() {
         var pending = {
             from_user: localStorage.getItem("user-id"),
             to_user: $(this).data('to-user')
         };
-        $.post( "/savePending",pending,function(data) {
-            //$( ".result" ).html( data );
+        $.post( "/savePending",pending);
+
+        $(this).addClass('fa-hourglass-end');
+        $(this).removeClass('fa-user-plus');
+        $(this).addClass('send-cancel-pending');
+        $(this).removeClass('send-pending');
+
+    });
+    $(document).on('click', ".send-cancel-pending", function() {
+    //$('.send-cancel-pending').click(function() {
+        var pending = {
+            from_user: localStorage.getItem("user-id"),
+            to_user: $(this).data('to-user'),
+            status: 'cancelled',
+        };
+
+        $.ajax({
+            url: '/updatePending',
+            type: 'PUT',
+            data: pending,
         });
+
+        $(this).addClass('fa-user-plus');
+        $(this).removeClass('fa-hourglass-end');
+        $(this).addClass('send-pending');
+        $(this).removeClass('send-cancel-pending');
+
     });
 </script>

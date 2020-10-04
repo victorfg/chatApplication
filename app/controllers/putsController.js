@@ -10,22 +10,29 @@ const postsController = require('./postsController.js');
 const putCtrl = {};
 
 putCtrl.updatePending = async(req, res, next) => {
-    const { pending_id, status} = req.body;
-    var pendingItem = await PendingModel.findOne({_id: pending_id});
-    pendingItem = JSON.parse(JSON.stringify(pendingItem))
+    //const { pending_id, status} = req.body;
+    const { from_user, to_user, status} = req.body;
+    // var pendingItem = await PendingModel.findOne({_id: pending_id});
+    // pendingItem = JSON.parse(JSON.stringify(pendingItem))
 
-    await User.updateMany({
-        $or: [
-            {
-                from_user:pendingItem.from_user, to_user:pendingItem.to_user, status:'pending'
-            },
-            {
-                to_user:pendingItem.to_user, from_user:pendingItem.from_user, status:'pending'
-            },
-        ]
-    }, { $set: { status: status } });
+    if(status==='rejected' || status==='cancelled'){
+        console.log(status);
+        await PendingModel.updateMany({from_user:from_user, to_user:to_user, status:'pending'},
+            { $set: { status: status } });
+    }
 
     if(status==='accepted'){
+        await PendingModel.updateMany({
+            $or: [
+                {
+                    from_user:from_user, to_user:to_user, status:'pending'
+                },
+                {
+                    to_user:to_user, from_user:from_user, status:'pending'
+                },
+            ]
+        }, { $set: { status: status } });
+
         //save from user if non exists
         var fromUserItem = await FriendModel.findOne({user:pendingItem.from_user,friend:pendingItem.to_user });
         if(!fromUserItem){

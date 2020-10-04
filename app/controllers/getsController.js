@@ -98,10 +98,41 @@ getsCtrl.renderSalaDeChat= async(req, res) => {
                 _id: {$nin: arrayFriends}
             }
         );
-    let arrayUsers = getAllUsersLessActive.map((item)=>{
-        return { nameInput:item.nameInput, emailInput:item.emailInput, _id:item._id , status: 'not-pending'} // not-pending / pending
-    });
 
+    var pendingItems = await PendingModel.find(
+            {
+                from_user: {$in: arrayFriends},
+                status: 'pending',
+            }
+        )
+        .populate('to_user')
+        .exec()
+    pendingItems = pendingItems.map((item)=>{
+            return { _id:item.to_user._id , status:item.status}
+        }
+    );
+
+    const arrayUsers = getAllUsersLessActive.map((item)=>{
+        var status = 'not-pending';
+        var pending = false;
+        pendingItems.forEach( function(value) {
+            if(value._id.toString()===item._id.toString()){
+                status = 'pending';
+                pending = true;
+            }
+        });
+        return { nameInput:item.nameInput, emailInput:item.emailInput, _id:item._id , status: status, pending:pending }
+    });
+   // console.log(arrayUsers)
+    // let arrayUsers = getAllUsersLessActive.map((item)=>{
+    //     var status = 'not-pending';
+    //     var pending = false;
+    //     var pendingItem = PendingModel.findOne({from_user:req.user.id, to_user:item._id , status:'pending'});
+    //     pendingItem.count({}, function( err, count){
+    //         pending = count > 0;
+    //         return { nameInput:item.nameInput, emailInput:item.emailInput, _id:item._id , status: status, pending:pending} // not-pending / pending
+    //     })
+    // });
     //Obtain messages
     const getAllMessagesForThisRoom = await MessageModel.find({room: req.query.id})
         .populate('user')
