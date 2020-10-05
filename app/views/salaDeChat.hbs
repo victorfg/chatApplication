@@ -37,9 +37,15 @@
         <div class="margins-container-subheader">
             {{#if activeRoomPublic}}
             {{else}}
-                <div class="crear-sala margin-right-20">
-                    <a href="#" type="button" data-toggle="modal" data-target="#exitFromRoomModal" class="btn btn-light">sala: Abandonar</a>
-                </div>
+                {{#if activeRoomisMain}}
+                    <div class="crear-sala margin-right-20">
+                        <a href="#" type="button" data-toggle="modal" data-target="#deleteRoom" class="btn btn-light">sala: Borrar</a>
+                    </div>
+                {{else}}
+                    <div class="crear-sala margin-right-20">
+                        <a href="#" type="button" data-toggle="modal" data-target="#exitFromRoomModal" class="btn btn-light">sala: Abandonar</a>
+                    </div>
+                {{/if}}
                 <div class="crear-sala margin-right-20">
                     <a href="#" type="button" data-toggle="modal" data-target="#addFriendToRoomModal" class="btn btn-light">sala: Amigos</a>
                 </div>
@@ -201,7 +207,7 @@
     </div>
 </div>
 
-<!-- Modal para agregar peticiones de amistad pendientes -->
+<!-- Modal para ver listado de amigos -->
 
 <div class="modal fade" id="friends" role="dialog">
     <div class="modal-dialog">
@@ -239,11 +245,11 @@
                 </button>
             </div>
             <ul class="list-group">
-                {{#each allFriendsInRoom}}
-                    <li class="list-group-item">
-                        <div class="display-flex">
-                            <div>{{this.username}}</div>
-                            {{#if activeRoomisMain}}
+                {{#if activeRoomisMain}} <!--Handlebars no deja meter una variable externa al foreach(que horror!)-->
+                    {{#each allFriendsInRoom}}
+                        <li class="list-group-item">
+                            <div class="display-flex">
+                                <div>{{this.username}}</div>
                                 <div class="div-icon-add-friend">
                                     {{#if this.in_room}}
                                         <i class="fa fa-ban send-out-room" data-room="{{this.roomid}}" data-user="{{this.userid}}" aria-hidden="true"></i>
@@ -251,10 +257,18 @@
                                         <i class="fa fa-check send-in-room" data-room="{{this.roomid}}" data-user="{{this.userid}}" aria-hidden="true"></i>
                                     {{/if}}
                                 </div>
-                            {{/if}}
-                        </div>
-                    </li>
-                {{/each}}
+                            </div>
+                        </li>
+                    {{/each}}
+                {{else}}
+                    {{#each allFriendsInRoom}}
+                        <li class="list-group-item">
+                            <div class="display-flex">
+                                <div>{{this.username}}</div>
+                            </div>
+                        </li>
+                    {{/each}}
+                {{/if}}
             </ul>
         </div>
     </div>
@@ -275,7 +289,7 @@
                 <ul class="list-group">
                     <li class="list-group-item">
                         <div class="display-flex">
-                            <div>Abandonar</div>
+                            <div class="send-exit-room" data-room="{{idRoom}}" data-user="{{idUser}}">Abandonar</div>
                         </div>
                     </li>
                     <li class="list-group-item" data-dismiss="modal" aria-label="Close" >
@@ -288,7 +302,33 @@
         </div>
     </div>
 </div>
-exitFromRoomModal
+<div class="modal fade" id="deleteRoom" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h5 class="modal-title">¿Está seguro que desea borrar la sala <b>{{activeRoom}}</b>?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <ul class="list-group">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <div class="display-flex">
+                            <div class="send-delete-room" data-room="{{idRoom}}" data-user="{{idUser}}">Borrar</div>
+                        </div>
+                    </li>
+                    <li class="list-group-item" data-dismiss="modal" aria-label="Close" >
+                        <div class="display-flex">
+                            <div>Cancelar</div>
+                        </div>
+                    </li>
+                </ul>
+            </ul>
+        </div>
+    </div>
+</div>
 <script>
     $("#logout").click(function(){
         localStorage.clear();
@@ -339,9 +379,12 @@ exitFromRoomModal
             url: '/updatePendingById',
             type: 'PUT',
             data: response,
+            success: function() { //solo recargamos cuando se completa la salida
+                window.location.reload();
+            }
         });
 
-        $('#pending-'+pendingId).remove();
+        //$('#pending-'+pendingId).remove();
     });
 
     $(document).on('click', ".reject-pending", function() {
@@ -355,6 +398,9 @@ exitFromRoomModal
             url: '/updatePendingById',
             type: 'PUT',
             data: response,
+            success: function() { //solo recargamos cuando se completa la salida
+                window.location.reload();
+            }
         });
 
     });
@@ -390,5 +436,40 @@ exitFromRoomModal
         $(this).addClass('send-in-room');
         $(this).removeClass('send-out-room');
         $(this).removeClass('fa-ban');
+    });
+    $(document).on('click', ".send-exit-room", function() {
+        var roomId = $(this).data('room');
+        var userId = $(this).data('user');
+        var response = {
+            room: roomId,
+            user: userId,
+            in_room: false
+        };
+
+        $.ajax({
+            url: '/updateUserRoom',
+            type: 'PUT',
+            data: response,
+            success: function() { //solo recargamos cuando se completa la salida
+                window.location = "/listaDeSalas";
+            }
+        });
+
+    });
+    $(document).on('click', ".send-delete-room", function() {
+        var roomId = $(this).data('room');
+        var response = {
+            room: roomId
+        };
+
+        $.ajax({
+            url: '/deleteRoom',
+            type: 'PUT',
+            data: response,
+            success: function() { //solo recargamos cuando se completa la salida
+                window.location = "/listaDeSalas";
+            }
+        });
+
     });
 </script>

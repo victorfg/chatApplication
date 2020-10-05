@@ -15,20 +15,19 @@ putCtrl.updatePending = async(req, res, next) => {
     // var pendingItem = await PendingModel.findOne({_id: pending_id});
     // pendingItem = JSON.parse(JSON.stringify(pendingItem))
 
-    if(status==='rejected' || status==='cancelled'){
-        console.log(status);
+    if(status==='rejected' || status==='cancelled'){ //si se cancela o rechaza solo actualizamos ese registro
         await PendingModel.updateMany({from_user:from_user, to_user:to_user, status:'pending'},
             { $set: { status: status } });
     }
 
-    if(status==='accepted'){
+    if(status==='accepted'){ //si se acepta actualizamos todos los registros de ambos usuarios
         await PendingModel.updateMany({
             $or: [
                 {
                     from_user:from_user, to_user:to_user, status:'pending'
                 },
                 {
-                    to_user:to_user, from_user:from_user, status:'pending'
+                    to_user:from_user, from_user:to_user, status:'pending'
                 },
             ]
         }, { $set: { status: status } });
@@ -69,7 +68,7 @@ putCtrl.updatePendingById = async(req, res, next) => {
                     from_user:pendingItem.from_user, to_user:pendingItem.to_user, status:'pending'
                 },
                 {
-                    to_user:pendingItem.to_user, from_user:pendingItem.from_user, status:'pending'
+                    to_user:pendingItem.from_user, from_user:pendingItem.to_user, status:'pending'
                 },
             ]
         }, { $set: { status: status } });
@@ -105,4 +104,19 @@ putCtrl.updateUserRoom = async(req, res, next) => {
     res.send(200);
 };
 
+putCtrl.deleteRoom = async(req, res, next) => {
+    var room  = req.body.room;
+    if(!room){
+        room = req.params.id
+    }
+    await Room.findByIdAndUpdate(room, { activated:false });
+    req.flash("success_msg", "Sala eliminada correctamente");
+    res.redirect("/listaDeSalas");
+};
+
+// deleteCtrl.deleteRoom= async(req, res) => {
+//     await Room.findByIdAndDelete(req.params.id);
+//     req.flash("success_msg", "Sala eliminada correctamente");
+//     res.redirect("/listaDeSalas");
+// };
 module.exports = putCtrl;

@@ -40,7 +40,8 @@
                         {{/if}}
                         {{#if this.isMain}}
                             <span class="badge badge-primary margin-right-35">Admin</span>
-                            <form action="/room/delete/{{_id}}?_method=DELETE" method="POST" class="margin-right-20">
+
+                            <form action="/room/delete/{{_id}}?_method=PUT" method="POST" class="margin-right-20">
                                 <button type="submit" class="btn btn-danger btn-block btn-sm">
                                     <i class="fa fa-trash fa-1x" aria-hidden="true"></i>
                                 </button>

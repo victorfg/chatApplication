@@ -10,7 +10,11 @@ const RoomSchema = new Schema({
     isPublicRoom: {
         type:Boolean,
         required:true
-    }
+    },
+    activated: {
+        type: Boolean,
+        default: true
+    },
 });
 
 module.exports = mongoose.model('Room', RoomSchema);

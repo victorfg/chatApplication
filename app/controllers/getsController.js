@@ -43,13 +43,16 @@ getsCtrl.renderListaDeSalas= async(req, res) => {
                 $or: [
                     {
                         user: req.user.id,
-                        isPublicRoom: false
+                        isPublicRoom: false,
+                        activated: true,
                     },
                     {
-                        isPublicRoom: true
+                        isPublicRoom: true,
+                        activated: true,
                     },
                     {
-                        _id : { $in : arrayFriendRooms}
+                        _id : { $in : arrayFriendRooms},
+                        activated: true,
                     },
                 ]
             },
@@ -82,7 +85,7 @@ getsCtrl.renderSalaDeChatNoRegistrado= (req, res) => {
 };
 
 getsCtrl.renderSalaDeChat= async(req, res) => {
-    var activeRoom = await RoomModel.findOne({ _id: req.query.id }).populate('user');
+    var activeRoom = await RoomModel.findOne({ _id: req.query.id , activated: true}).populate('user');
     var isMain = req.user.id.toString() === activeRoom.user._id.toString();
     activeRoom.isMain = isMain;
 
@@ -108,17 +111,16 @@ getsCtrl.renderSalaDeChat= async(req, res) => {
     });
 
     let arrayFriends = getAllUserFriends.map((item)=>{
-        return { _id:item.user._id }
+        return { _id:item.friend._id }
     });
-    arrayFriends.push(req.user.id);
 
     //Obtenemos todos los usuarios que no sean amigos y que tampoco sea nuestro usuario
+    arrayFriends.push({ _id:req.user.id  });
     const getAllUsersLessActive = await UserModel.find(
             {
                 _id: {$nin: arrayFriends}
             }
         );
-
     var myPendingItems =  await PendingModel.find(
         {
             to_user: req.user.id,
@@ -147,17 +149,26 @@ getsCtrl.renderSalaDeChat= async(req, res) => {
         }
     );
 
+
     const arrayUsers = getAllUsersLessActive.map((item)=>{
         var status = 'not-pending';
+        // var isFriend = false;
         var pending = false;
+
+        // arrayFriends.forEach( function(value) {
+        //     if(value._id===item._id.toString()){
+        //         isFriend = true;
+        //     }
+        // });
         pendingItems.forEach( function(value) {
             if(value._id.toString()===item._id.toString()){
                 status = 'pending';
                 pending = true;
             }
         });
-        return { nameInput:item.nameInput, emailInput:item.emailInput, _id:item._id , status: status, pending:pending }
+        return { nameInput:item.nameInput, emailInput:item.emailInput, _id:item._id , status: status, pending:pending } //, isFriend: isFriend
     });
+
 
    // console.log(arrayUsers)
     // let arrayUsers = getAllUsersLessActive.map((item)=>{
