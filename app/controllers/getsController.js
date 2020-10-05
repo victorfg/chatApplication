@@ -99,6 +99,21 @@ getsCtrl.renderSalaDeChat= async(req, res) => {
             }
         );
 
+    var myPendingItems =  await PendingModel.find(
+        {
+            to_user: req.user.id,
+            status: 'pending',
+        }
+    )
+        .populate('from_user')
+        .exec();
+    console.log(myPendingItems)
+    myPendingItems = myPendingItems.map((item)=>{
+            return { _id:item._id ,fromUserid:item.from_user._id, fromUserName:item.from_user.nameInput}
+        }
+    );
+
+
     var pendingItems = await PendingModel.find(
             {
                 from_user: {$in: arrayFriends},
@@ -151,6 +166,7 @@ getsCtrl.renderSalaDeChat= async(req, res) => {
         activeRoom: activeRoom.nombreDeLaSala,
         activeRoomPublic: activeRoom.isPublicRoom,
         idRoom: activeRoom._id,
+        myPendingItems: myPendingItems,
         nameInput:req.user.nameInput,
         emailInput:req.user.emailInput,
         idDeLaSala:req.query.id,

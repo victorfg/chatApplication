@@ -51,6 +51,47 @@ putCtrl.updatePending = async(req, res, next) => {
     res.send(200);
 };
 
+putCtrl.updatePendingById = async(req, res, next) => {
+    const { _id, status} = req.body;
+    console.log(_id);
+    var pendingItem = await PendingModel.findById(_id);
+    pendingItem = JSON.parse(JSON.stringify(pendingItem))
+    console.log(pendingItem)
+    if(status==='rejected' || status==='cancelled'){
+        await PendingModel.updateMany({from_user:pendingItem.from_user, to_user:pendingItem.to_user, status:'pending'},
+            { $set: { status: status } });
+    }
+    console.log(pendingItem)
+    if(status==='accepted'){
+        await PendingModel.updateMany({
+            $or: [
+                {
+                    from_user:pendingItem.from_user, to_user:pendingItem.to_user, status:'pending'
+                },
+                {
+                    to_user:pendingItem.to_user, from_user:pendingItem.from_user, status:'pending'
+                },
+            ]
+        }, { $set: { status: status } });
+
+        //save from user if non exists
+        var fromUserItem = await FriendModel.findOne({user:pendingItem.from_user,friend:pendingItem.to_user });
+        if(!fromUserItem){
+            friendItem = new FriendModel({ user:pendingItem.from_user,friend:pendingItem.to_user }) ;
+            friendItem.save();
+        }
+
+        //save to user if non exists
+        var toUserItem = await FriendModel.findOne({ user:pendingItem.to_user, friend:pendingItem.from_user});
+        if(!toUserItem){
+            friendItem = new FriendModel({ user:pendingItem.to_user, friend:pendingItem.from_user}) ;
+            friendItem.save();
+        }
+    }
+
+    res.send(200);
+};
+
 
 putCtrl.updateUserRoom = async(req, res, next) => {
     const { room_id ,in_room } = req.body;

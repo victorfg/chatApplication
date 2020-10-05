@@ -32,11 +32,11 @@
     </div>
     <div class="sub-header-right">
         <div class="margins-container-subheader">
+<!--            <div class="crear-sala margin-right-20">-->
+<!--                <a href="#" type="button" data-toggle="modal" data-target="#friends" class="btn btn-light">Amigos</a>-->
+<!--            </div>-->
             <div class="crear-sala margin-right-20">
-                <a href="#" type="button" class="btn btn-light">Amigos</a>
-            </div>
-            <div class="crear-sala margin-right-20">
-                <a href="#" type="button" class="btn btn-light">Pendiente</a>
+                <a href="#" type="button" data-toggle="modal" data-target="#friendsPendingModal" class="btn btn-light">Pendiente</a>
             </div>
             <div class="crear-sala">
                 <button type="button" data-toggle="modal" data-target="#addFriendModal" class="btn btn-light">Añadir amigo </button>
@@ -159,6 +159,35 @@
         </div>
     </div>
 </div>
+
+<!-- Modal para agregar peticiones de amistad pendientes -->
+
+<div class="modal fade" id="friendsPendingModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h5 class="modal-title">Peticiones de amistad</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <ul class="list-group">
+<!--                {{#each myPendingItems}}-->
+                    <li class="list-group-item" id="pending-{{this._id}}">
+                        <div class="display-flex">
+                            <div>{{this.fromUserName}}</div>
+                            <div class="div-icon-add-friend">
+                                    <i class="fa fa-check accept-pending margin-right-20" data-pending="{{this._id}}" aria-hidden="true"></i>
+                                    <i class="fa fa-ban reject-pending" data-pending="{{this._id}}" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </li>
+<!--                {{/each}}-->
+            </ul>
+        </div>
+    </div>
+</div>
 <script>
     $("#logout").click(function(){
         localStorage.clear();
@@ -196,5 +225,37 @@
         $(this).addClass('send-pending');
         $(this).removeClass('send-cancel-pending');
 
+    });
+
+    $(document).on('click', ".accept-pending", function() {
+        var pendingId = $(this).data('pending');
+        var response = {
+            _id: localStorage.getItem("user-id"),
+            status: 'accepted',
+        };
+
+        $.ajax({
+            url: '/updatePendingById',
+            type: 'PUT',
+            data: response,
+        });
+
+        $(this).remove('pending-'+pendingId);
+    });
+
+    $(document).on('click', ".reject-pending", function() {
+        var pendingId = $(this).data('pending');
+        var response = {
+            _id: localStorage.getItem("user-id"),
+            status: 'rejected',
+        };
+
+        $.ajax({
+            url: '/updatePendingById',
+            type: 'PUT',
+            data: response,
+        });
+
+        $(this).remove('pending-'+pendingId);
     });
 </script>
