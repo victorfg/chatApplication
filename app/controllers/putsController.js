@@ -94,8 +94,13 @@ putCtrl.updatePendingById = async(req, res, next) => {
 
 
 putCtrl.updateUserRoom = async(req, res, next) => {
-    const { room_id ,in_room } = req.body;
-    await UserRoomModel.findByIdAndUpdate(room_id, { in_room:in_room });
+    const { room, user ,in_room } = req.body;
+    await UserRoomModel.findByIdAndUpdate(room, { in_room:in_room });
+    await UserRoomModel.updateMany(
+        {
+            room:room, user:user
+        }
+    , { $set: { in_room: in_room } });
 
     res.send(200);
 };

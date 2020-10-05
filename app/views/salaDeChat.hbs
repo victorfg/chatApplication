@@ -16,6 +16,9 @@
                 {{else}}
                     <span class="margin-left-15"><i class="fa fa-pencil" aria-hidden="true"></i></span>
                     <span class="badge badge-secondary etiqueta-sala">Sala privada</span>
+                    {{#if activeRoomisMain}}
+                            <span class="badge badge-primary margin-right-35">Admin</span>
+                    {{/if}}
                 {{/if}}
             </div>
             {{#if avatarImage}}
@@ -32,6 +35,15 @@
     </div>
     <div class="sub-header-right">
         <div class="margins-container-subheader">
+            {{#if activeRoomPublic}}
+            {{else}}
+                <div class="crear-sala margin-right-20">
+                    <a href="#" type="button" data-toggle="modal" data-target="#exitFromRoomModal" class="btn btn-light">sala: Abandonar</a>
+                </div>
+                <div class="crear-sala margin-right-20">
+                    <a href="#" type="button" data-toggle="modal" data-target="#addFriendToRoomModal" class="btn btn-light">sala: Amigos</a>
+                </div>
+            {{/if}}
             <div class="crear-sala margin-right-20">
                 <a href="#" type="button" data-toggle="modal" data-target="#friends" class="btn btn-light">Amigos</a>
             </div>
@@ -213,6 +225,70 @@
         </div>
     </div>
 </div>
+
+<!-- Modal para agregar amigo a sala privada -->
+
+<div class="modal fade" id="addFriendToRoomModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h5 class="modal-title">Amigos en la sala {{activeRoom}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <ul class="list-group">
+                {{#each allFriendsInRoom}}
+                    <li class="list-group-item">
+                        <div class="display-flex">
+                            <div>{{this.username}}</div>
+                            {{#if activeRoomisMain}}
+                                <div class="div-icon-add-friend">
+                                    {{#if this.in_room}}
+                                        <i class="fa fa-ban send-out-room" data-room="{{this.roomid}}" data-user="{{this.userid}}" aria-hidden="true"></i>
+                                    {{else}}
+                                        <i class="fa fa-check send-in-room" data-room="{{this.roomid}}" data-user="{{this.userid}}" aria-hidden="true"></i>
+                                    {{/if}}
+                                </div>
+                            {{/if}}
+                        </div>
+                    </li>
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Modal para abandonar sala privada -->
+
+<div class="modal fade" id="exitFromRoomModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h5 class="modal-title">¿Está seguro que desea abandonar la sala <b>{{activeRoom}}</b>?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <ul class="list-group">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <div class="display-flex">
+                            <div>Abandonar</div>
+                        </div>
+                    </li>
+                    <li class="list-group-item" data-dismiss="modal" aria-label="Close" >
+                        <div class="display-flex">
+                            <div>Cancelar</div>
+                        </div>
+                    </li>
+                </ul>
+            </ul>
+        </div>
+    </div>
+</div>
+exitFromRoomModal
 <script>
     $("#logout").click(function(){
         localStorage.clear();
@@ -281,6 +357,38 @@
             data: response,
         });
 
-        $('#pending-'+pendingId).remove();
+    });
+    $(document).on('click', ".send-in-room", function() {
+        var roomId = $(this).data('room');
+        var userId = $(this).data('user');
+        var response = {
+            room: roomId,
+            user: userId,
+        };
+        $.post( "/saveUserRoom",response);
+
+        $(this).addClass('send-out-room');
+        $(this).addClass('fa-ban');
+        $(this).removeClass('fa-check');
+        $(this).removeClass('send-in-room');
+    });
+    $(document).on('click', ".send-out-room", function() {
+        var roomId = $(this).data('room');
+        var userId = $(this).data('user');
+        var response = {
+            room: roomId,
+            user: userId,
+            in_room: false
+        };
+
+        $.ajax({
+            url: '/updateUserRoom',
+            type: 'PUT',
+            data: response,
+        });
+        $(this).addClass('fa-check');
+        $(this).addClass('send-in-room');
+        $(this).removeClass('send-out-room');
+        $(this).removeClass('fa-ban');
     });
 </script>
