@@ -80,11 +80,11 @@ getsCtrl.renderSalaDeChat= async(req, res) => {
     //obtenemos amigos
     const getAllUserFriends = await FriendModel.find(
         {user: req.user.id}
-    ).populate('user')
+    ).populate('friend')
         .exec();
 
     let arrayNameFriends = getAllUserFriends.map((item)=>{
-        return { _id:item.user._id  , _id:item.user.nameInput  }
+        return { _id:item.friend._id  , nameInput:item.friend.nameInput  }
     });
 
     let arrayFriends = getAllUserFriends.map((item)=>{
@@ -107,7 +107,7 @@ getsCtrl.renderSalaDeChat= async(req, res) => {
     )
         .populate('from_user')
         .exec();
-    console.log(myPendingItems)
+
     myPendingItems = myPendingItems.map((item)=>{
             return { _id:item._id ,fromUserid:item.from_user._id, fromUserName:item.from_user.nameInput}
         }
@@ -138,6 +138,7 @@ getsCtrl.renderSalaDeChat= async(req, res) => {
         });
         return { nameInput:item.nameInput, emailInput:item.emailInput, _id:item._id , status: status, pending:pending }
     });
+
    // console.log(arrayUsers)
     // let arrayUsers = getAllUsersLessActive.map((item)=>{
     //     var status = 'not-pending';

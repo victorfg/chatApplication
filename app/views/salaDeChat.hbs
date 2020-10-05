@@ -32,9 +32,9 @@
     </div>
     <div class="sub-header-right">
         <div class="margins-container-subheader">
-<!--            <div class="crear-sala margin-right-20">-->
-<!--                <a href="#" type="button" data-toggle="modal" data-target="#friends" class="btn btn-light">Amigos</a>-->
-<!--            </div>-->
+            <div class="crear-sala margin-right-20">
+                <a href="#" type="button" data-toggle="modal" data-target="#friends" class="btn btn-light">Amigos</a>
+            </div>
             <div class="crear-sala margin-right-20">
                 <a href="#" type="button" data-toggle="modal" data-target="#friendsPendingModal" class="btn btn-light">Pendiente</a>
             </div>
@@ -173,7 +173,7 @@
                 </button>
             </div>
             <ul class="list-group">
-<!--                {{#each myPendingItems}}-->
+             {{#each myPendingItems}}
                     <li class="list-group-item" id="pending-{{this._id}}">
                         <div class="display-flex">
                             <div>{{this.fromUserName}}</div>
@@ -183,7 +183,32 @@
                             </div>
                         </div>
                     </li>
-<!--                {{/each}}-->
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para agregar peticiones de amistad pendientes -->
+
+<div class="modal fade" id="friends" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h5 class="modal-title">Amigos</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <ul class="list-group">
+                {{#each friendsNames}}
+                <li class="list-group-item" id="friend-{{this._id}}">
+                    <div class="display-flex">
+                        <div>{{this.nameInput}}</div>
+                    </div>
+                </li>
+             {{/each}}
             </ul>
         </div>
     </div>
@@ -230,7 +255,7 @@
     $(document).on('click', ".accept-pending", function() {
         var pendingId = $(this).data('pending');
         var response = {
-            _id: localStorage.getItem("user-id"),
+            _id: pendingId,
             status: 'accepted',
         };
 
@@ -240,13 +265,13 @@
             data: response,
         });
 
-        $(this).remove('pending-'+pendingId);
+        $('#pending-'+pendingId).remove();
     });
 
     $(document).on('click', ".reject-pending", function() {
         var pendingId = $(this).data('pending');
         var response = {
-            _id: localStorage.getItem("user-id"),
+            _id: pendingId,
             status: 'rejected',
         };
 
@@ -256,6 +281,6 @@
             data: response,
         });
 
-        $(this).remove('pending-'+pendingId);
+        $('#pending-'+pendingId).remove();
     });
 </script>
