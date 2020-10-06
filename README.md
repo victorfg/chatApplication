@@ -1,6 +1,8 @@
 # chatApplication
 A Real Time Chat Application built using Node.js, Express, Handlebars, Mongoose, Socket.io
 
+[Video presentation (spanish)](http://vfernandez.me/uoc/video_chat_app.mp4)
+
 ## Running the prototype
 
 * `git clone` this repo
