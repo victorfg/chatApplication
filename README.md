@@ -17,6 +17,11 @@ Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c6
 
 ## Authors
 
+Marina Suárez López
+Alejandro Zapata
+Manuel Mendizábal González
+Víctor Fernández Gayán
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
