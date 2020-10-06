@@ -17,10 +17,10 @@ Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c6
 
 ## Authors
 
-Marina Suárez López
-Alejandro Zapata
-Manuel Mendizábal González
-Víctor Fernández Gayán
+* **Marina Suárez López**
+* **Alejandro Zapata**
+* **Manuel Mendizábal González**
+* **Víctor Fernández Gayán**
 
 ## License
 
